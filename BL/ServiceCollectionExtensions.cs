@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BL
 {
-    internal static class ServiceCollectionExtensions
+    public static class ServiceCollectionExtensions
     {
         public static IServiceCollection AddServices(this IServiceCollection collection)
         {

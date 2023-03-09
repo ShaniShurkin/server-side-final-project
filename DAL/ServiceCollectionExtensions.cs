@@ -11,6 +11,8 @@ namespace DAL
     {
         public static IServiceCollection AddRepositories(this IServiceCollection collection)
         {
+            
+
             collection.AddSingleton<IFoodRepository, FoodRepository>();
             collection.AddSingleton<IClientRepository, ClientRepository>();
             collection.AddSingleton<IDBManager, DBManager>();
