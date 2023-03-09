@@ -13,6 +13,7 @@ namespace UI.Controllers
         {
             this.ClientService = clientService;
         }
+        [HttpGet]
         public async Task<List<ClientDTO>> GetAll()
         {
             return ClientService.GetAllAsync().Result;

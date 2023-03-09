@@ -14,6 +14,7 @@ namespace UI.Controllers
         {
             this.FoodService = foodService;
         }
+        [HttpGet]
         public async Task<List<FoodDTO>> GetAll()
         {
             return FoodService.GetAllAsync().Result;

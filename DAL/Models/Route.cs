@@ -4,10 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DAL
+namespace DAL.Models
 {
-    public interface IDBManager
+    public enum Route
     {
-        
+        weightLoss,
+        weightGain,
+        muscles,
+        health
     }
 }
