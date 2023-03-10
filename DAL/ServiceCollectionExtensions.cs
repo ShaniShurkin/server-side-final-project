@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,15 +12,21 @@ namespace DAL
     {
         public static IServiceCollection AddRepositories(this IServiceCollection collection)
         {
-           
 
-// Add services to the container.
-            collection.Services.Configure<DietDatabaseSettings>(
-            collection.Configuration.GetSection("DietDatabaseSettings"));
+
+
+            //collection.Services.Configure<DietDatabaseSettings>(
+            //collection.Configuration.GetSection("DietDatabaseSettings"));
 
             collection.AddSingleton<IFoodRepository, FoodRepository>();
             collection.AddSingleton<IClientRepository, ClientRepository>();
             collection.AddSingleton<IDBManager, DBManager>();
+            //https://stackoverflow.com/questions/64776364/dependency-injection-of-mongodb-connection-information-in-view-layer-of-mvc
+            collection.Configure<IDietDatabaseSettings>(Configuration.GetSection("DietDatabaseSettings"));
+            collection.AddSingleton<IDietDatabaseSettings>(provider => provider.GetRequiredService<IOptions<DietDatabaseSettings>>().Value);
+            //collection.AddControllersWithViews();
+            //collection.AddControllers();
+            //collection.AddScoped<MongoDB_Communicator>();
             return collection;
         }
     }

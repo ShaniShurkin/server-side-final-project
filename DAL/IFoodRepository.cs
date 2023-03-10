@@ -9,5 +9,6 @@ namespace DAL
 {
     internal interface IFoodRepository : IRepsitory<Food>
     {
+        
     }
 }

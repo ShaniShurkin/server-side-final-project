@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DAL
 {
-    internal class DietDatabaseSettings
+    internal class DietDatabaseSettings : IDietDatabaseSettings
     {
         public string ConnectionString { get; set; } = null!;
 

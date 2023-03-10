@@ -13,47 +13,14 @@ namespace DAL
         {
             throw new NotImplementedException();
         }
-
+        //public async Task<List<Food>> GetAllAsync()
+        //{
+        //    await _foodsCollection.Find(_ => true).ToListAsync();
+        //}
         public Task<bool> DeleteAsync(string id)
         {
             throw new NotImplementedException();
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         public Task<List<Client>> GetAllAsync()
         {
             throw new NotImplementedException();

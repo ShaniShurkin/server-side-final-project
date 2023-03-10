@@ -1,4 +1,6 @@
 ﻿using DAL.Models;
+using MongoDB.Driver;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,20 +11,27 @@ namespace DAL
 {
     public class FoodRepository : IFoodRepository
     {
-         private readonly IMongoCollection<Food> _foodsCollection;
+        private IMongoCollection<Food> foodsCollection;
+        public IMongoCollection<Food> FileService(IDietDatabaseSettings settings)
+        {
+            var client = new MongoClient(settings.ConnectionString);
+            var database = client.GetDatabase(settings.DatabaseName);
+            foodsCollection = database.GetCollection<Food>(settings.FoodCollectionName);
+            return (foodsCollection);
+        }
+        
 
-    public FoodRepository(
-        IOptions<DietDatabaseSettings> dietDatabaseSettings)
-    {
-        var mongoClient = new MongoClient(
-            dietDatabaseSettings.Value.ConnectionString);
+        //public FoodRepository(IOptions<DietDatabaseSettings> dietDatabaseSettings)
+        //{
+        //    var mongoClient = new MongoClient(
+        //        dietDatabaseSettings.Value.ConnectionString);
 
-        var mongoDatabase = mongoClient.GetDatabase(
-            dietDatabaseSettings.Value.DatabaseName);
+        //    var mongoDatabase = mongoClient.GetDatabase(
+        //        dietDatabaseSettings.Value.DatabaseName);
 
-        _booksCollection = mongoDatabase.GetCollection<Food>(
-            dietDatabaseSettings.Value.FoodCollectionName);
-    }
+        //        _foodsCollection = mongoDatabase.GetCollection<Food>(
+        //        dietDatabaseSettings.Value.FoodCollectionName);
+        //}
 
 
         public Task<string> AddAsync(Food objectToAdd)
@@ -35,11 +44,12 @@ namespace DAL
             throw new NotImplementedException();
         }
 
-        public Task<List<Food>> GetAllAsync()
+        public /*async*/ Task<List<Food>> GetAllAsync()
         {
-            await _foodsCollection.Find(_ => true).ToListAsync();
+            throw new NotImplementedException();
+            //await _foodsCollection.Find(_ => true).ToListAsync();
         }
-
+        
         public Task<Food> GetSingleAsync(string id)
         {
             throw new NotImplementedException();
