@@ -9,6 +9,21 @@ namespace DAL
 {
     public class FoodRepository : IFoodRepository
     {
+         private readonly IMongoCollection<Food> _foodsCollection;
+
+    public FoodRepository(
+        IOptions<DietDatabaseSettings> dietDatabaseSettings)
+    {
+        var mongoClient = new MongoClient(
+            dietDatabaseSettings.Value.ConnectionString);
+
+        var mongoDatabase = mongoClient.GetDatabase(
+            dietDatabaseSettings.Value.DatabaseName);
+
+        _booksCollection = mongoDatabase.GetCollection<Food>(
+            dietDatabaseSettings.Value.FoodCollectionName);
+    }
+
 
         public Task<string> AddAsync(Food objectToAdd)
         {
@@ -22,7 +37,7 @@ namespace DAL
 
         public Task<List<Food>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            await _foodsCollection.Find(_ => true).ToListAsync();
         }
 
         public Task<Food> GetSingleAsync(string id)

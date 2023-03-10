@@ -11,7 +11,11 @@ namespace DAL
     {
         public static IServiceCollection AddRepositories(this IServiceCollection collection)
         {
-            
+           
+
+// Add services to the container.
+            collection.Services.Configure<DietDatabaseSettings>(
+            collection.Configuration.GetSection("DietDatabaseSettings"));
 
             collection.AddSingleton<IFoodRepository, FoodRepository>();
             collection.AddSingleton<IClientRepository, ClientRepository>();
