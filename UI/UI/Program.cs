@@ -1,10 +1,18 @@
 using BL;
+using Microsoft.Extensions.Configuration;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+var ConnectionString = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("PlatePlanDatabase").GetSection("ConnectionString").Value;
+var DatabaseName = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("PlatePlanDatabase").GetSection("DatabaseName").Value;
+var ClientsCollectionName = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("PlatePlanDatabase").GetSection("ClientsCollectionName").Value;
+var FoodsCollectionName = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("PlatePlanDatabase").GetSection("FoodsCollectionName").Value;
 
 builder.Services.AddControllers();
-builder.Services.AddServices();
+builder.Services.AddServices(ConnectionString, DatabaseName, ClientsCollectionName, FoodsCollectionName);
+
+
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

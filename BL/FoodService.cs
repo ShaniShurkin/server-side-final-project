@@ -1,4 +1,5 @@
 ﻿using BL.DTO;
+using DAL.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,11 @@ namespace BL
 {
     internal class FoodService : IFoodService
     {
+        IFoodRepository foodRepo;
+        public DriverService(IFoodRepository foodRepo)
+        {
+            this.foodRepo = foodRepo;
+        }
         public Task<string> AddAsync(FoodDTO objectToAdd)
         {
             throw new NotImplementedException();
@@ -19,9 +25,9 @@ namespace BL
             throw new NotImplementedException();
         }
 
-        public Task<List<FoodDTO>> GetAllAsync()
+        public Task<List<Food>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            List<Food> food = await driverRepo.GetAllAsync();
         }
 
         public Task<FoodDTO> GetSingleAsync(string id)

@@ -10,7 +10,7 @@ namespace DAL
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddRepositories(this IServiceCollection collection)
+        public static IServiceCollection AddRepositories(this IServiceCollection collection, string ConnectionString, string DatabaseName, string ClientsCollectionName, string FoodsCollectionName)
         {
 
 
@@ -19,11 +19,15 @@ namespace DAL
             //collection.Configuration.GetSection("DietDatabaseSettings"));
 
             collection.AddSingleton<IFoodRepository, FoodRepository>();
+
             collection.AddSingleton<IClientRepository, ClientRepository>();
             collection.AddSingleton<IDBManager, DBManager>();
+
             //https://stackoverflow.com/questions/64776364/dependency-injection-of-mongodb-connection-information-in-view-layer-of-mvc
-            collection.Configure<IDietDatabaseSettings>(Configuration.GetSection("DietDatabaseSettings"));
-            collection.AddSingleton<IDietDatabaseSettings>(provider => provider.GetRequiredService<IOptions<DietDatabaseSettings>>().Value);
+         //   collection.Configure<IDietDatabaseSettings>(Configuration.GetSection("DietDatabaseSettings"));
+            //collection.AddSingleton<IDietDatabaseSettings, DietDatabaseSettings>();
+            collection.AddSingleton<IDietDatabaseSettings>(new DietDatabaseSettings(ConnectionString, DatabaseName, ClientsCollectionName, FoodsCollectionName));
+            //collection.AddSingleton<IDietDatabaseSettings>(provider => provider.GetRequiredService<IOptions<DietDatabaseSettings>>().Value);
             //collection.AddControllersWithViews();
             //collection.AddControllers();
             //collection.AddScoped<MongoDB_Communicator>();

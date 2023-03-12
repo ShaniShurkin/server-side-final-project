@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MongoDB.Bson;
 
 namespace DAL
 {
@@ -44,11 +45,16 @@ namespace DAL
             throw new NotImplementedException();
         }
 
-        public /*async*/ Task<List<Food>> GetAllAsync()
+        public async Task<List<Food>> GetAllAsync()
         {
-            throw new NotImplementedException();
-            //await _foodsCollection.Find(_ => true).ToListAsync();
+            var firstDocument = foodsCollection.Find(new BsonDocument()).ToList();
+            return firstDocument;
+            //var documents = await foodsCollection.Find().ToListAsync();
+
+            //await return foodsCollection.Find(_ => true).ToListAsync();
+           // await return foodsCollection.Find().ToListAsync();
         }
+
         
         public Task<Food> GetSingleAsync(string id)
         {
