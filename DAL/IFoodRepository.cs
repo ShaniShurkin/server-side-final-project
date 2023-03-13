@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DAL
 {
-    internal interface IFoodRepository : IRepsitory<Food>
+    public interface IFoodRepository : IRepsitory<Food>
     {
         
     }

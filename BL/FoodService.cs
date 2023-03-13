@@ -1,4 +1,5 @@
 ﻿using BL.DTO;
+using DAL;
 using DAL.Models;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ namespace BL
     internal class FoodService : IFoodService
     {
         IFoodRepository foodRepo;
-        public DriverService(IFoodRepository foodRepo)
+        public FoodService(FoodRepository foodRepo)
         {
             this.foodRepo = foodRepo;
         }
