@@ -25,10 +25,22 @@ namespace BL
         {
             throw new NotImplementedException();
         }
-
+        //https://stackoverflow.com/questions/68221617/struggling-with-returning-a-task-using-mongodriver-and-catching-the-error
         public Task<List<Food>> GetAllAsync()
         {
-            List<Food> food = await driverRepo.GetAllAsync();
+            return foodRepo.GetAllAsync();
+            //List<Food> list;
+            //try
+            //{
+            //    list = await foodRepo.Find(book => true).ToListAsync();
+            //    return list;
+            //}
+            //catch (Exception e)
+            //{
+            //    var exceptionTask = new Task(() => { throw e; });
+            //    exceptionTask.RunSynchronously();
+            //    return exceptionTask;
+            //}
         }
 
         public Task<FoodDTO> GetSingleAsync(string id)
