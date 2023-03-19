@@ -13,35 +13,44 @@ namespace DAL
     public class FoodRepository : IFoodRepository
     {
         private IMongoCollection<Food> foodCollection;
-        public FoodRepository(IDietDatabaseSettings settings)
+        public FoodRepository(IDietDatabaseSettings settings, IDBManager dbConnection)
         {
-            var client = new MongoClient(settings.ConnectionString);
+            //to check if DI....
+            var client = dbConnection.getDatabase();
             var database = client.GetDatabase(settings.DatabaseName);
-            foodsCollection = database.GetCollection<Food>(settings.FoodCollectionName);
-        
-        }
-        
-        public Task<string> AddAsync(Food objectToAdd)
-        {
-            throw new NotImplementedException();
+            foodCollection = database.GetCollection<Food>(settings.FoodCollectionName);
         }
 
-        public Task<bool> DeleteAsync(string id)
+        public async Task<string> AddAsync(Food food)
         {
-            throw new NotImplementedException();
+            await foodCollection.InsertOneAsync(food);
+            //return id
+
+            return "";
+
+        }
+
+        public async Task<bool> DeleteAsync(string code)
+        {
+            FilterDefinition<Food> filter = Builders<Food>.Filter.Eq("Code", code);
+            await foodCollection.DeleteOneAsync(filter);
+            //return task
+            return true;
+
         }
 
         public async Task<List<Food>> GetAllAsync()
         {
-            var firstDocument = foodsCollection.Find(new BsonDocument()).ToList();
-            return firstDocument;
+            //var foodList = foodCollection.Find(new BsonDocument()).ToList();
+            return await foodCollection.GetAsync();
+            //return firstDocument;
             //var documents = await foodsCollection.Find().ToListAsync();
 
             //await return foodsCollection.Find(_ => true).ToListAsync();
-           // await return foodsCollection.Find().ToListAsync();
+            // await return foodsCollection.Find().ToListAsync();
         }
 
-        
+
         public Task<Food> GetSingleAsync(string id)
         {
             throw new NotImplementedException();

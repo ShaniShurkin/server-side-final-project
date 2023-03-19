@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MongoDB.Driver;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,15 @@ namespace DAL
 {
     internal class DBManager : IDBManager
     {
-        
-
+        private MongoClient client;
+        public DBManager(string connectionString)
+        {
+            this.client = new MongoClient(connectionString);
+        }
+        public MongoClient getDatabase()
+        {
+            return client;
+           
+        }
     }
 }

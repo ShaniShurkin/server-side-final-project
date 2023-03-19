@@ -27,6 +27,8 @@ namespace DAL
          //   collection.Configure<IDietDatabaseSettings>(Configuration.GetSection("DietDatabaseSettings"));
             //collection.AddSingleton<IDietDatabaseSettings, DietDatabaseSettings>();
             collection.AddSingleton<IDietDatabaseSettings>(new DietDatabaseSettings(ConnectionString, DatabaseName, ClientsCollectionName, FoodsCollectionName));
+            collection.AddSingleton<IDBManager>(new DBManager(ConnectionString));
+
             //collection.AddSingleton<IDietDatabaseSettings>(provider => provider.GetRequiredService<IOptions<DietDatabaseSettings>>().Value);
             //collection.AddControllersWithViews();
             //collection.AddControllers();

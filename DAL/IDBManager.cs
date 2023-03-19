@@ -9,6 +9,6 @@ namespace DAL
 {
     public interface IDBManager
     {
-       public MongoClient getDatabase(IDietDatabaseSettings); 
+       public MongoClient getDatabase(); 
     }
 }
