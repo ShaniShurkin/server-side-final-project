@@ -12,29 +12,15 @@ namespace DAL
 {
     public class FoodRepository : IFoodRepository
     {
-        private IMongoCollection<Food> foodsCollection;
-        public IMongoCollection<Food> FileService(IDietDatabaseSettings settings)
+        private IMongoCollection<Food> foodCollection;
+        public FoodRepository(IDietDatabaseSettings settings)
         {
             var client = new MongoClient(settings.ConnectionString);
             var database = client.GetDatabase(settings.DatabaseName);
             foodsCollection = database.GetCollection<Food>(settings.FoodCollectionName);
-            return (foodsCollection);
+        
         }
         
-
-        //public FoodRepository(IOptions<DietDatabaseSettings> dietDatabaseSettings)
-        //{
-        //    var mongoClient = new MongoClient(
-        //        dietDatabaseSettings.Value.ConnectionString);
-
-        //    var mongoDatabase = mongoClient.GetDatabase(
-        //        dietDatabaseSettings.Value.DatabaseName);
-
-        //        _foodsCollection = mongoDatabase.GetCollection<Food>(
-        //        dietDatabaseSettings.Value.FoodCollectionName);
-        //}
-
-
         public Task<string> AddAsync(Food objectToAdd)
         {
             throw new NotImplementedException();

@@ -8,15 +8,26 @@ using System.Threading.Tasks;
 namespace DAL
 {
     internal class ClientRepository : IClientRepository
+
     {
-        public Task<string> AddAsync(Client objectToAdd)
+        private IMongoCollection<Client> clientsCollection;
+        
+        public ClientRepository(IDietDatabaseSettings settings)
         {
-            throw new NotImplementedException();
+           var client = new MongoClient(settings.ConnectionString);
+           var database = client.GetDatabase(settings.DatabaseName);
+           clientsCollection = database.GetCollection<Client>(settings.ClientsCollectionName);
+         }
+	 
+        public IMongoCollection<Food> FileService(IDietDatabaseSettings settings)
+        {
+           
         }
-        //public async Task<List<Food>> GetAllAsync()
-        //{
-        //    await _foodsCollection.Find(_ => true).ToListAsync();
-        //}
+        
+        public async Task<string> AddAsync(Client objectToAdd)
+        {
+           await 
+        }
         public Task<bool> DeleteAsync(string id)
         {
             throw new NotImplementedException();

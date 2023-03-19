@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace DAL
 {
-    internal class DBManager: IDBManager
+    internal class DBManager : IDBManager
     {
+        
 
     }
 }
