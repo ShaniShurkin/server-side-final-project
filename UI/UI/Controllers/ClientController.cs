@@ -1,5 +1,5 @@
-﻿using BL;
-using BL.DTO;
+﻿using BL.DTO;
+using BL.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace UI.Controllers

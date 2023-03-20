@@ -1,5 +1,5 @@
-﻿using BL;
-using BL.DTO;
+﻿using BL.DTO;
+using BL.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace UI.Controllers
@@ -8,7 +8,6 @@ namespace UI.Controllers
     [Route("api/[controller]")]
     public class FoodController : ControllerBase
     {
-
         IFoodService FoodService;
         public FoodController(IFoodService foodService)
         {

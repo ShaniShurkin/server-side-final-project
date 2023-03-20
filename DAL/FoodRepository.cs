@@ -1,15 +1,6 @@
-﻿using DAL.Models;
-using MongoDB.Driver;
-using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MongoDB.Bson;
-
-namespace DAL
+﻿namespace DAL
 {
+    //todo list:   try and catch to all functions
     public class FoodRepository : IFoodRepository
     {
         private IMongoCollection<Food> foodCollection;
@@ -41,24 +32,22 @@ namespace DAL
 
         public async Task<List<Food>> GetAllAsync()
         {
-            //var foodList = foodCollection.Find(new BsonDocument()).ToList();
-            return await foodCollection.GetAsync();
-            //return firstDocument;
-            //var documents = await foodsCollection.Find().ToListAsync();
-
-            //await return foodsCollection.Find(_ => true).ToListAsync();
-            // await return foodsCollection.Find().ToListAsync();
+            return await foodCollection.Find(_ => true).ToListAsync();
         }
 
 
-        public Task<Food> GetSingleAsync(string id)
+        public async Task<Food> GetSingleAsync(string code)
         {
-            throw new NotImplementedException();
+            FilterDefinition<Food> filter = Builders<Food>.Filter.Eq("Code", code);
+            var food = await foodCollection.Find(filter).FirstOrDefaultAsync();
+            return food;
         }
 
-        public Task<bool> UpdatAsync(Food objectToUpdate)
+        public async Task<bool> UpdatAsync(Food food)
         {
-            throw new NotImplementedException();
+            FilterDefinition<Food> filter = Builders<Food>.Filter.Eq("Code", food.Code);
+            await foodCollection.ReplaceOneAsync(filter, food);                         
+            return false;
         }
     }
 }

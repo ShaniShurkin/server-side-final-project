@@ -1,20 +1,10 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace DAL
 {
     public static class ServiceCollectionExtensions
     {
         public static IServiceCollection AddRepositories(this IServiceCollection collection, string ConnectionString, string DatabaseName, string ClientsCollectionName, string FoodsCollectionName)
         {
-
-
-
             //collection.Services.Configure<DietDatabaseSettings>(
             //collection.Configuration.GetSection("DietDatabaseSettings"));
 
