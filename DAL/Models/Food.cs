@@ -6,7 +6,7 @@
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public string _Id { get; set; }
+        public string Id { get; set; }
         public int Code { get; set; }
         public string EnglishName { get; set; }
         public string Smlmitzrach { get; set; }

@@ -8,4 +8,5 @@ global using DAL.Interfaces;
 global using DAL.Models;
 global using BL.DTO;
 global using BL.Interfaces;
+global using AutoMapper;
 

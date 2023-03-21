@@ -16,7 +16,6 @@
 
          public string? Gender { get; set; }
 
-        //[BsonElement("bornDate")]
         public DateTime? BornDate { get; set; }
 
         public double Height { get; set; }
