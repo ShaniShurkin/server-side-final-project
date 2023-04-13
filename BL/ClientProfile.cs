@@ -4,7 +4,7 @@
     {
         public ClientProfile()
         {
-            CreateMap<Client, ClientDTO>();
+            CreateMap<Client, ClientDTO>().ReverseMap();
         }
         
     }
