@@ -10,6 +10,7 @@
         public string FoodCollectionName { get; set; } = null!;
         public DietDatabaseSettings(string connectionString, string databaseName, string clientsCollectionName, string foodsCollectionName)
         {
+
             ConnectionString = connectionString;
             DatabaseName = databaseName;
             ClientsCollectionName = clientsCollectionName;

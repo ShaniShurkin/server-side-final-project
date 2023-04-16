@@ -1,6 +1,6 @@
 ﻿namespace DAL.Interfaces
 {
-    internal interface IClientRepository : IRepsitory<Client>
+    public interface IClientRepository : IRepsitory<Client>
     {
     }
 }

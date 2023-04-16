@@ -5,6 +5,6 @@
         weightLoss,
         weightGain,
         muscles,
-        health
+        health,
     }
 }

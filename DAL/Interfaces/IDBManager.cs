@@ -2,6 +2,6 @@
 {
     public interface IDBManager
     {
-        public MongoClient getDatabase();
+        public IMongoDatabase getDatabase();
     }
 }

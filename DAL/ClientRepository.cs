@@ -8,12 +8,14 @@ namespace DAL
 
     {
         private IMongoCollection<Client> clientsCollection;
-        
-        public ClientRepository(IDietDatabaseSettings settings)
+        IDBManager dBManager;
+
+
+        public ClientRepository(IDietDatabaseSettings settings, IDBManager dBManager)
         {
-           var client = new MongoClient(settings.ConnectionString);
-           var database = client.GetDatabase(settings.DatabaseName);
-           clientsCollection = database.GetCollection<Client>(settings.ClientsCollectionName);
+            this.dBManager = dBManager;
+            var database = this.dBManager.getDatabase();
+            clientsCollection = database.GetCollection<Client>(settings.ClientsCollectionName);
          }
         
         public async Task<string> AddAsync(Client client)
@@ -32,7 +34,8 @@ namespace DAL
         }
         public async Task<List<Client>> GetAllAsync()
         {
-            return await clientsCollection.Find(_ => true).ToListAsync();
+            var x = await clientsCollection.AsQueryable<Client>().ToListAsync();
+            return x;
         }
 
         public async Task<Client> GetSingleAsync(string code)

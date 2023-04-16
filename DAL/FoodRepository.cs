@@ -4,11 +4,12 @@
     public class FoodRepository : IFoodRepository
     {
         private IMongoCollection<Food> foodCollection;
-        public FoodRepository(IDietDatabaseSettings settings, IDBManager dbConnection)
+        IDBManager dBManager;
+        public FoodRepository(IDietDatabaseSettings settings, IDBManager dBManager)
         {
             //to check if DI....
-            var client = dbConnection.getDatabase();
-            var database = client.GetDatabase(settings.DatabaseName);
+            this.dBManager = dBManager;
+            var database = this.dBManager.getDatabase();
             foodCollection = database.GetCollection<Food>(settings.FoodCollectionName);
         }
 
@@ -32,7 +33,8 @@
 
         public async Task<List<Food>> GetAllAsync()
         {
-            return await foodCollection.Find(_ => true).ToListAsync();
+           var x= await foodCollection.Find(_ => true).ToListAsync();
+            return x;
         }
 
 

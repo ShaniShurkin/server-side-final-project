@@ -2,6 +2,13 @@
 {
     internal class ClientService : IClientService
     {
+        IClientRepository clientRepository;
+        IMapper mapper;
+        public ClientService(IClientRepository clientRepository, IMapper mapper )
+        {
+            this.clientRepository = clientRepository;
+            this.mapper = mapper;
+        }
         public Task<string> AddAsync(ClientDTO objectToAdd)
         {
             throw new NotImplementedException();
@@ -12,9 +19,10 @@
             throw new NotImplementedException();
         }
 
-        public Task<List<ClientDTO>> GetAllAsync()
+        public async Task<List<ClientDTO>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            List<Client> clients = await clientRepository.GetAllAsync();
+            return mapper.Map<List<ClientDTO>>(clients);
         }
 
         public Task<ClientDTO> GetSingleAsync(string id)

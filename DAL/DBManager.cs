@@ -3,14 +3,17 @@
     internal class DBManager : IDBManager
     {
         private MongoClient client;
-        public DBManager(string connectionString)
+        IDietDatabaseSettings dietDatabaseSettings;
+        public DBManager(IDietDatabaseSettings dietDatabaseSettings)
         {
-            this.client = new MongoClient(connectionString);
+            this.dietDatabaseSettings = dietDatabaseSettings;
+            this.client = new MongoClient(this.dietDatabaseSettings.ConnectionString);
+            
         }
-        public MongoClient getDatabase()
+        public IMongoDatabase getDatabase()
         {
-            return client;
-           
+            return client.GetDatabase(dietDatabaseSettings.DatabaseName);
+
         }
     }
 }

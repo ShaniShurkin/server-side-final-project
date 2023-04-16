@@ -7,36 +7,37 @@
         public string Id { get; set; }
 
         public string Code { get; set; }
-
+        [BsonElement("firstName")]
         public string FirstName { get; set; } = null!;
-
+        [BsonElement("lastName")]
         public string LastName { get; set; } = null!;
-
+        [BsonElement("emailAddress")]
         public string EmailAddress { get; set; } = null!;
-
-         public string? Gender { get; set; }
-
+        [BsonElement("gender")]
+        public string? Gender { get; set; }
+        [BsonElement("bornDate")]
         public DateTime? BornDate { get; set; }
-
+        [BsonElement("height")]
         public double Height { get; set; }
-
+        [BsonElement("weight")]
         public double Weight { get; set; }
-
+        [BsonElement("fitnessLevel")]
         public int FitnessLevel { get; set; }
-
-        public Route Route { get; set; }
-
+        [BsonElement("route")]
+        //public Route route { get; set; }
+        public int Route { get; set; }
+        [BsonElement("startDate")]
         public DateTime StartDate { get; set; }
-
+        [BsonElement("duration")]
         public int Duration { get; set; }
-
+        [BsonElement("progress")]
         public double[] Progress { get; set; }
-
+        [BsonElement("food")]
         public Dictionary<string, int> Food { get; set; }
 
         public Client(string firstName, string lastName, string emailAddress,
            DateTime bornDate, double height, double weight,
-           Route route = Route.health, int fitnessLevel = 50, int duration = 4)
+          /* Route route = Route.health,*/ int fitnessLevel = 50, int duration = 4)
         {
             this.FirstName = firstName;
             this.LastName = lastName;
@@ -44,7 +45,7 @@
             this.BornDate = bornDate;
             this.Height = height;
             this.Weight = weight;
-            this.Route = route;
+            this.Route = 3;
             this.StartDate = DateTime.Now;
             this.FitnessLevel = fitnessLevel;
             this.Duration = duration;

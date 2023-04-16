@@ -9,4 +9,5 @@ global using DAL.Models;
 global using BL.DTO;
 global using BL.Interfaces;
 global using AutoMapper;
+//global using BL.Profiles
 

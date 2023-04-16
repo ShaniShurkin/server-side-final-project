@@ -2,10 +2,12 @@
 {
     internal class FoodService : IFoodService
     {
-        IFoodRepository foodRepo;
-        public FoodService(FoodRepository foodRepo)
+        IFoodRepository foodRepository;
+        IMapper mapper;
+        public FoodService(IFoodRepository foodRepository, IMapper mapper)
         {
-            this.foodRepo = foodRepo;
+            this.foodRepository = foodRepository;
+            this.mapper = mapper;
         }
         public Task<string> AddAsync(FoodDTO objectToAdd)
         {
@@ -17,21 +19,11 @@
             throw new NotImplementedException();
         }
         //https://stackoverflow.com/questions/68221617/struggling-with-returning-a-task-using-mongodriver-and-catching-the-error
-        public Task<List<FoodDTO>> GetAllAsync()
+        public async Task<List<FoodDTO>> GetAllAsync()
         {
-            return foodRepo.GetAllAsync();
-            //List<Food> list;
-            //try
-            //{
-            //    list = await foodRepo.Find(book => true).ToListAsync();
-            //    return list;
-            //}
-            //catch (Exception e)
-            //{
-            //    var exceptionTask = new Task(() => { throw e; });
-            //    exceptionTask.RunSynchronously();
-            //    return exceptionTask;
-            //}
+            List<Food> food = await foodRepository.GetAllAsync();
+            return mapper.Map<List<FoodDTO>>(food);
+           
         }
 
         public Task<FoodDTO> GetSingleAsync(string id)

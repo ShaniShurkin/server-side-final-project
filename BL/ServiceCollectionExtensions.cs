@@ -1,4 +1,5 @@
 ﻿using BL.Interfaces;
+
 using Microsoft.Extensions.DependencyInjection;
 namespace BL
 {
@@ -9,7 +10,8 @@ namespace BL
             collection.AddSingleton<IClientService, ClientService>();
             collection.AddSingleton<IFoodService, FoodService>();
             collection.AddRepositories(ConnectionString, DatabaseName, ClientsCollectionName, FoodsCollectionName);
-           // collection.AddAutoMapper(profileAssembly1, profileAssembly2 /*, ...*/);
+            collection.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            //collection.AddAutoMapper(typeof(ClientProfile));
             return collection;
         }
     }
