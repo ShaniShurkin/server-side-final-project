@@ -2,8 +2,9 @@
 {
     public class ClientDTO
     {
+        #region properties
         //public string Code { get; set; }
-
+        public string Id { get; set; }
         public string FirstName { get; set; } = null!;
 
         public string LastName { get; set; } = null!;
@@ -29,7 +30,8 @@
 
         //public double[] Progress { get; set; }
 
-        public Dictionary<string, int> Food { get; set; }
-        
+        public Dictionary<string, int> Foods { get; set; }
+        #endregion
+
     }
 }

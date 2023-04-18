@@ -4,6 +4,7 @@
 
     public class Food
     {
+        #region properties
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
@@ -170,6 +171,7 @@
         public double Manganese { get; set; }
         [BsonElement("fructose")]
         public double Fructose { get; set; }
+        #endregion
 
         public Food()
         {

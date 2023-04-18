@@ -5,6 +5,7 @@ namespace BL.DTO
 {
     public class FoodDTO
     {
+        #region properties
         public int Code { get; set; }
         public string EnglishName { get; set; }
         public string Smlmitzrach { get; set; }
@@ -87,6 +88,7 @@ namespace BL.DTO
         public double Biotin { get; set; }
         public double Manganese { get; set; }
         public double Fructose { get; set; }
+        #endregion
     }
 
 

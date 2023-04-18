@@ -2,7 +2,7 @@
 
 namespace UI.Controllers
 {
-    public class   : Controller
+    public class ConfigurationController : Controller
     {
         private readonly IConfiguration _configuration;
 

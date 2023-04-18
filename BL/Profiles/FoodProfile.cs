@@ -1,4 +1,4 @@
-﻿namespace BL
+﻿namespace BL.Profiles
 {
     internal class FoodProfile : Profile
     {

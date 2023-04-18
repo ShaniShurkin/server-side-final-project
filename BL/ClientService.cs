@@ -14,9 +14,9 @@
             throw new NotImplementedException();
         }
 
-        public Task<bool> DeleteAsync(string id)
+        public async Task<bool> DeleteAsync(string id)
         {
-            throw new NotImplementedException();
+            return await clientRepository.DeleteAsync(id);
         }
 
         public async Task<List<ClientDTO>> GetAllAsync()
@@ -25,9 +25,11 @@
             return mapper.Map<List<ClientDTO>>(clients);
         }
 
-        public Task<ClientDTO> GetSingleAsync(string id)
+        public async Task<ClientDTO> GetSingleAsync(string id)
         {
-            throw new NotImplementedException();
+            Client client = await clientRepository.GetSingleAsync(id);
+            return mapper.Map<ClientDTO>(client);
+
         }
 
         public Task<bool> UpdateAsync(ClientDTO objectToUpdate)

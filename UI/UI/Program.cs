@@ -12,7 +12,7 @@ var FoodsCollectionName = new ConfigurationBuilder().AddJsonFile("appsettings.js
 builder.Services.Configure<DbSettings>(builder.Configuration.GetSection("PlatePlanDatabase"));
 builder.Services.AddControllers();
 
-builder.Services.AddServices( ConnectionString, DatabaseName, ClientsCollectionName, FoodsCollectionName);
+builder.Services.AddServices(ConnectionString, DatabaseName, ClientsCollectionName, FoodsCollectionName);
 
 
 

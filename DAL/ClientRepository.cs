@@ -25,10 +25,20 @@ namespace DAL
 
             return "";
         }
-        public async Task<bool> DeleteAsync(string code)
+        public async Task<bool> DeleteAsync(string id)
         {
-            FilterDefinition<Client> filter = Builders<Client>.Filter.Eq("Code", code);
-            await clientsCollection.DeleteOneAsync(filter);
+            try
+            {
+                FilterDefinition<Client> filter = Builders<Client>.Filter.Eq("Id", id);
+                await clientsCollection.DeleteOneAsync(filter);
+
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+            
             //return task
             return true;
         }
@@ -38,9 +48,9 @@ namespace DAL
             return x;
         }
 
-        public async Task<Client> GetSingleAsync(string code)
+        public async Task<Client> GetSingleAsync(string id)
         {
-            FilterDefinition<Client> filter = Builders<Client>.Filter.Eq("Code", code);
+            FilterDefinition<Client> filter = Builders<Client>.Filter.Eq("Id", id);
             var client = await clientsCollection.Find(filter).FirstOrDefaultAsync();
             return client;
         }

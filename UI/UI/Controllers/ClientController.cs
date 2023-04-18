@@ -18,5 +18,18 @@ namespace UI.Controllers
         {
             return ClientService.GetAllAsync().Result;
         }
+        [HttpGet("get/{id}")]
+        public async Task<ClientDTO> GetSingle(string id)
+        {
+            return ClientService.GetSingleAsync(id).Result;
+
+        }
+
+        [HttpDelete("delete/{id}")]
+        public async Task<bool> DeleteSingle(string id)
+        {
+            return ClientService.GetSingleAsync(id);
+
+        }
     }
 }

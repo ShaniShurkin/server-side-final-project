@@ -21,8 +21,8 @@
         //https://stackoverflow.com/questions/68221617/struggling-with-returning-a-task-using-mongodriver-and-catching-the-error
         public async Task<List<FoodDTO>> GetAllAsync()
         {
-            List<Food> food = await foodRepository.GetAllAsync();
-            return mapper.Map<List<FoodDTO>>(food);
+            List<Food> foods = await foodRepository.GetAllAsync();
+            return mapper.Map<List<FoodDTO>>(foods);
            
         }
 

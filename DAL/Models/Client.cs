@@ -2,10 +2,12 @@
 {
     public class Client
     {
+        #region properties
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
+        public string ObjectId { get; set; }
+        [BsonElement("id")]
         public string Id { get; set; }
-
         public string Code { get; set; }
         [BsonElement("firstName")]
         public string FirstName { get; set; } = null!;
@@ -33,12 +35,14 @@
         [BsonElement("progress")]
         public double[] Progress { get; set; }
         [BsonElement("food")]
-        public Dictionary<string, int> Food { get; set; }
+        public Dictionary<string, int> Foods { get; set; }
+        #endregion
 
-        public Client(string firstName, string lastName, string emailAddress,
+        public Client(string id,string firstName, string lastName, string emailAddress,
            DateTime bornDate, double height, double weight,
           /* Route route = Route.health,*/ int fitnessLevel = 50, int duration = 4)
         {
+            this.Id = id;
             this.FirstName = firstName;
             this.LastName = lastName;
             this.EmailAddress = emailAddress;
@@ -49,6 +53,7 @@
             this.StartDate = DateTime.Now;
             this.FitnessLevel = fitnessLevel;
             this.Duration = duration;
+            
 
 
         }
