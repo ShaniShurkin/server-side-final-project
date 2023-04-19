@@ -9,9 +9,10 @@
             this.clientRepository = clientRepository;
             this.mapper = mapper;
         }
-        public Task<string> AddAsync(ClientDTO objectToAdd)
+        public async Task<string> AddAsync(ClientDTO objectToAdd)
         {
-            throw new NotImplementedException();
+            Client client = mapper.Map<Client>(objectToAdd);
+            return await clientRepository.AddAsync(client);
         }
 
         public async Task<bool> DeleteAsync(string id)

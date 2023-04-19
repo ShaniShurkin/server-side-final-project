@@ -18,7 +18,7 @@
             await foodsCollection.InsertOneAsync(food);
             //return id
 
-            return "";
+            return food.Id;
 
         }
 

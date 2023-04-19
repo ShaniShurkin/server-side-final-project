@@ -39,5 +39,11 @@ namespace UI.Controllers
 
 
         }
+
+        [HttpPost("add")]
+        public async Task<string> AddAsync(ClientDTO client)
+        {
+            return await ClientService.AddAsync(client);
+        }
     }
 }

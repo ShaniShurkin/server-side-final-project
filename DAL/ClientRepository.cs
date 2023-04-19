@@ -21,9 +21,7 @@ namespace DAL
         public async Task<string> AddAsync(Client client)
         {
             await clientsCollection.InsertOneAsync(client);
-            //return id
-
-            return "";
+            return client.Id;
         }
         public async Task<bool> DeleteAsync(string id)
         {
@@ -50,6 +48,7 @@ namespace DAL
         {
             FilterDefinition<Client> filter = Builders<Client>.Filter.Eq("Code", client.Code);
             var updated = await clientsCollection.ReplaceOneAsync(filter, client);
+            //https://stackoverflow.com/questions/14853362/mongodb-update-only-specific-fields
             if (updated != null)
                 return true;
             return false;
