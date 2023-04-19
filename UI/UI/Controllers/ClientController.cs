@@ -25,11 +25,19 @@ namespace UI.Controllers
 
         }
 
-        //[HttpDelete("delete/{id}")]
-        //public async Task<bool> DeleteSingle(string id)
-        //{
-        //    return ClientService.GetSingleAsync(id);
+        [HttpDelete("delete/{id}")]
+        public async Task<bool> DeleteSingle(string id)
+        {
+            return await ClientService.DeleteAsync(id);
+           
 
-        //}
+        }
+        [HttpPut("update")]
+        public async Task<bool> DeleteSingle(ClientDTO client)
+        {
+            return await ClientService.UpdateAsync(client);
+
+
+        }
     }
 }

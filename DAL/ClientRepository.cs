@@ -16,8 +16,8 @@ namespace DAL
             this.dBManager = dBManager;
             var database = this.dBManager.getDatabase();
             clientsCollection = database.GetCollection<Client>(settings.ClientsCollectionName);
-         }
-        
+        }
+
         public async Task<string> AddAsync(Client client)
         {
             await clientsCollection.InsertOneAsync(client);
@@ -27,20 +27,11 @@ namespace DAL
         }
         public async Task<bool> DeleteAsync(string id)
         {
-            try
-            {
-                FilterDefinition<Client> filter = Builders<Client>.Filter.Eq("Id", id);
-                await clientsCollection.DeleteOneAsync(filter);
-
-            }
-            catch (Exception)
-            {
-
-                return false;
-            }
-            
-            //return task
-            return true;
+            FilterDefinition<Client> filter = Builders<Client>.Filter.Eq("Id", id);
+            var result = await clientsCollection.FindOneAndDeleteAsync(filter);
+            if (result != null)
+                return true;
+            return false;
         }
         public async Task<List<Client>> GetAllAsync()
         {
@@ -58,7 +49,9 @@ namespace DAL
         public async Task<bool> UpdatAsync(Client client)
         {
             FilterDefinition<Client> filter = Builders<Client>.Filter.Eq("Code", client.Code);
-            await clientsCollection.ReplaceOneAsync(filter, client);
+            var updated = await clientsCollection.ReplaceOneAsync(filter, client);
+            if (updated != null)
+                return true;
             return false;
         }
     }

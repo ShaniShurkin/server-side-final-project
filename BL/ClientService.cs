@@ -32,9 +32,10 @@
 
         }
 
-        public Task<bool> UpdateAsync(ClientDTO objectToUpdate)
+        public async Task<bool> UpdateAsync(ClientDTO objectToUpdate)
         {
-            throw new NotImplementedException();
+            Client client = mapper.Map<Client>(objectToUpdate);
+            return await clientRepository.UpdatAsync(client);
         }
     }
 }

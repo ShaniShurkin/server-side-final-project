@@ -38,15 +38,16 @@
         public Dictionary<string, int> Foods { get; set; }
         #endregion
 
-        public Client(string id,string firstName, string lastName, string emailAddress,
-           DateTime bornDate, double height, double weight,
+        public Client(string id,string firstName, string lastName, string emailAddress, string gender, double weight
+          /* DateTime bornDate = DateTime.Now*/, double height = 1.5,
           /* Route route = Route.health,*/ int fitnessLevel = 50, int duration = 4)
         {
             this.Id = id;
             this.FirstName = firstName;
             this.LastName = lastName;
             this.EmailAddress = emailAddress;
-            this.BornDate = bornDate;
+            this.Gender = gender;
+           // this.BornDate = bornDate;
             this.Height = height;
             this.Weight = weight;
             this.Route = 3;
