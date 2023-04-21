@@ -2,5 +2,6 @@
 {
     public interface IClientService : IService<ClientDTO>
     {
+        
     }
 }

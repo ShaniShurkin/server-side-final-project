@@ -33,7 +33,7 @@ namespace UI.Controllers
 
         }
         [HttpPut("update")]
-        public async Task<bool> DeleteSingle(ClientDTO client)
+        public async Task<bool> UpdateSingle(ClientDTO client)
         {
             return await ClientService.UpdateAsync(client);
 

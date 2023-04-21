@@ -46,11 +46,16 @@ namespace DAL
 
         public async Task<bool> UpdatAsync(Client client)
         {
-            FilterDefinition<Client> filter = Builders<Client>.Filter.Eq("Code", client.Code);
+            FilterDefinition<Client> filter = Builders<Client>.Filter.Eq("Id", client.Id);
             var updated = await clientsCollection.ReplaceOneAsync(filter, client);
-            //https://stackoverflow.com/questions/14853362/mongodb-update-only-specific-fields
-            if (updated != null)
-                return true;
+            //var config = new MapperConfiguration(cfg => cfg.CreateMap<Book, Book>()
+            //    .ForAllMembers(opts => opts.Condition((src, dest, member) => member != null)));
+            //var mapper = config.CreateMapper();
+            //Task<Client> oldClient = GetSingleAsync(client.Id);
+            //var margedClient = mapper.Map(client, oldClient);
+            ////https://stackoverflow.com/questions/14853362/mongodb-update-only-specific-fields
+            //if (updated != null)
+            //    return true;
             return false;
         }
     }

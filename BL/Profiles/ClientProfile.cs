@@ -5,6 +5,8 @@
         public ClientProfile()
         {
             CreateMap<Client, ClientDTO>().ReverseMap();
+            CreateMap<Client, Client>()
+           .ForAllMembers(opts => opts.Condition((src, dest, member) => member != null));
         }
         
     }
