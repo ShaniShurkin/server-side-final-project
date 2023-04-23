@@ -46,8 +46,8 @@ namespace DAL
 
         public async Task<bool> UpdatAsync(Client client)
         {
-            FilterDefinition<Client> filter = Builders<Client>.Filter.Eq("Id", client.Id);
-            var updated = await clientsCollection.ReplaceOneAsync(filter, client);
+            //FilterDefinition<Client> filter = Builders<Client>.Filter.Eq("Id", client.Id);
+            //var updated = await clientsCollection.ReplaceOneAsync(filter, client);
             //var config = new MapperConfiguration(cfg => cfg.CreateMap<Book, Book>()
             //    .ForAllMembers(opts => opts.Condition((src, dest, member) => member != null)));
             //var mapper = config.CreateMapper();
@@ -56,6 +56,17 @@ namespace DAL
             ////https://stackoverflow.com/questions/14853362/mongodb-update-only-specific-fields
             //if (updated != null)
             //    return true;
+
+            //UpdateDefinition<Client> update = Builders<Client>.Update(client);
+            //await clientsCollection.UpdateOneAsync(filter, client);
+            //return;
+            Client newClient = await GetSingleAsync(client.Id);
+            client.ObjectId= newClient.ObjectId;
+            var x = await clientsCollection.ReplaceOneAsync(x => x.Id == client.Id, client);
+            if(x!= null)
+            {
+                return true;
+            }
             return false;
         }
     }

@@ -37,13 +37,11 @@
         {
 
             Client client = mapper.Map<Client>(objectToUpdate);
-            var config = new MapperConfiguration(cfg => cfg.CreateMap<Client, Client>()
-            .ForAllMembers(opts => opts.Condition((src, dest, member) => member != null)));
-            var mapper1 = config.CreateMapper();
-            var oldClient = clientRepository.GetSingleAsync(objectToUpdate.Id);
-            var newClient = mapper1.Map(client, oldClient);
-            clientRepository.UpdatAsync(newClient.Result);
-            return true;
+           
+            //var oldClient = clientRepository.GetSingleAsync(objectToUpdate.Id);
+            //var newClient = await mapper.Map(client, oldClient);
+            return await clientRepository.UpdatAsync(client);
+            //return true;
             //return await clientRepository.UpdatAsync(client);
         }
     }
