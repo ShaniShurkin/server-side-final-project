@@ -45,7 +45,7 @@
             return food;
         }
 
-        public async Task<bool> UpdatAsync(Food food)
+        public async Task<bool> UpdatAsync(string id, Food food)
         {
             FilterDefinition<Food> filter = Builders<Food>.Filter.Eq("Code", food.Code);
             await foodsCollection.ReplaceOneAsync(filter, food);                         

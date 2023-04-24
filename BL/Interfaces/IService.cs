@@ -8,7 +8,7 @@
 
         Task<string> AddAsync(T objectToAdd);
 
-        Task<bool> UpdateAsync(T objectToUpdate);
+        Task<bool> UpdateAsync(string id, T objectToUpdate);
 
         Task<bool> DeleteAsync(string id);
     }

@@ -31,7 +31,7 @@
             throw new NotImplementedException();
         }
 
-        public Task<bool> UpdateAsync(FoodDTO objectToUpdate)
+        public Task<bool> UpdateAsync(string id, FoodDTO objectToUpdate)
         {
             throw new NotImplementedException();
         }

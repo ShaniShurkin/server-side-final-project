@@ -32,10 +32,10 @@ namespace UI.Controllers
            
 
         }
-        [HttpPut("update")]
-        public async Task<bool> UpdateSingle(ClientDTO client)
+        [HttpPut("update/{id}")]
+        public async Task<bool> UpdateSingle(string id, ClientDTO client)
         {
-            return await ClientService.UpdateAsync(client);
+            return await ClientService.UpdateAsync(id, client);
 
 
         }

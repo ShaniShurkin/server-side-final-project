@@ -44,7 +44,7 @@ namespace DAL
             return client;
         }
 
-        public async Task<bool> UpdatAsync(Client client)
+        public async Task<bool> UpdatAsync(string id, Client client)
         {
             //FilterDefinition<Client> filter = Builders<Client>.Filter.Eq("Id", client.Id);
             //var updated = await clientsCollection.ReplaceOneAsync(filter, client);
@@ -60,9 +60,9 @@ namespace DAL
             //UpdateDefinition<Client> update = Builders<Client>.Update(client);
             //await clientsCollection.UpdateOneAsync(filter, client);
             //return;
-            Client newClient = await GetSingleAsync(client.Id);
+            Client newClient = await GetSingleAsync(id);
             client.ObjectId= newClient.ObjectId;
-            var x = await clientsCollection.ReplaceOneAsync(x => x.Id == client.Id, client);
+            var x = await clientsCollection.ReplaceOneAsync(x => x.Id == id, client);
             if(x!= null)
             {
                 return true;

@@ -33,14 +33,14 @@
 
         }
 
-        public async Task<bool> UpdateAsync(ClientDTO objectToUpdate)
+        public async Task<bool> UpdateAsync(string id, ClientDTO objectToUpdate)
         {
 
             Client client = mapper.Map<Client>(objectToUpdate);
            
             //var oldClient = clientRepository.GetSingleAsync(objectToUpdate.Id);
             //var newClient = await mapper.Map(client, oldClient);
-            return await clientRepository.UpdatAsync(client);
+            return await clientRepository.UpdatAsync(id,client);
             //return true;
             //return await clientRepository.UpdatAsync(client);
         }
