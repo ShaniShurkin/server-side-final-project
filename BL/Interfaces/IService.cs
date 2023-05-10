@@ -4,7 +4,7 @@
     {
         Task<List<T>> GetAllAsync();
 
-        Task<T> GetSingleAsync(string id);
+        Task<T> GetSingleAsync(int code);
 
         Task<string> AddAsync(T objectToAdd);
 

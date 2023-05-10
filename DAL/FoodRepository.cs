@@ -33,7 +33,7 @@
 
         public async Task<List<Food>> GetAllAsync()
         {
-           var x= await foodsCollection.Find(_ => true).ToListAsync();
+            var x = await foodsCollection.AsQueryable<Food>().ToListAsync();
             return x;
         }
 
@@ -43,6 +43,7 @@
             FilterDefinition<Food> filter = Builders<Food>.Filter.Eq("Code", code);
             var food = await foodsCollection.Find(filter).FirstOrDefaultAsync();
             return food;
+ 
         }
 
         public async Task<bool> UpdatAsync(string id, Food food)

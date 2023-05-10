@@ -1,4 +1,6 @@
-﻿namespace BL
+﻿using DAL.Interfaces;
+
+namespace BL
 {
     internal class FoodService : IFoodService
     {
@@ -23,12 +25,12 @@
         {
             List<Food> foods = await foodRepository.GetAllAsync();
             return mapper.Map<List<FoodDTO>>(foods);
-           
         }
 
-        public Task<FoodDTO> GetSingleAsync(string id)
+        public async Task<FoodDTO> GetSingleAsync(int code)
         {
-            throw new NotImplementedException();
+            Food food = await foodRepository.GetSingleAsync(code);
+            return mapper.Map<FoodDTO>(food);
         }
 
         public Task<bool> UpdateAsync(string id, FoodDTO objectToUpdate)

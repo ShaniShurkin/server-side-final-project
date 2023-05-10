@@ -1,4 +1,5 @@
-﻿using BL.DTO;
+﻿using BL;
+using BL.DTO;
 using BL.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,7 +9,7 @@ namespace UI.Controllers
     [Route("api/[controller]")]
     public class FoodController : ControllerBase
     {
-        IFoodService FoodService;
+        readonly IFoodService FoodService;
         public FoodController(IFoodService foodService)
         {
             this.FoodService = foodService;
@@ -17,6 +18,18 @@ namespace UI.Controllers
         public async Task<List<FoodDTO>> GetAll()
         {
             return FoodService.GetAllAsync().Result;
+        }
+        [HttpGet("get/{code}")]
+        public async Task<ClientDTO> GetSingle(int code)
+        {
+            return FoodService.GetSingleAsync(code).Result;
+
+        }
+        [HttpGet("simplex")]
+        public string getSimplex()
+        {
+            MenuPlanning m = new();
+            return m.option1();
         }
     }
 }

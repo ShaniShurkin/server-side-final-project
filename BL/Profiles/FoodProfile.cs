@@ -4,7 +4,7 @@
     {
         public FoodProfile()
         {
-            CreateMap<FoodDTO, Food>();//.ForMember(dest => dest.Id, src => src.Ignore()).ReverseMap();
+            CreateMap<Food, FoodDTO>().ReverseMap();//.ForMember(dest => dest.Id, src => src.Ignore()).ReverseMap();
         }
     }
 }

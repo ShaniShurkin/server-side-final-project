@@ -7,17 +7,21 @@ using System.Threading.Tasks;
 
 namespace BL
 {
-    internal class MenuPlanning
+    public class MenuPlanning
     {
 
-        static void option1()
+        public string option1()
         {
             var psi = new ProcessStartInfo();
-            psi.FileName = "C:\\Program Files\\Python311\\python.exe";
-            var script = "C:\\script2.py";
+            psi.FileName = "C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python37\\python.exe";
+            var script = "..\\..\\..\\simplex.py";
+            string sCurrentDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            string sFile = Path.Combine(sCurrentDirectory, @"..\..\..\..\..\simplex.py");
+            string sFilePath = Path.GetFullPath(sFile);
+            Console.WriteLine(sFilePath);
             var start = "2019-1-1";
             var end = "2019-1-22";
-            psi.Arguments = $"\"{script}\" \"{start}\" \"{end}\" \"5\"";
+            psi.Arguments = $"\"{sFilePath}\" \"{start}\" \"{end}\" \"5\"";
             psi.UseShellExecute = false;
             psi.CreateNoWindow = true;
             psi.RedirectStandardOutput = true;
@@ -34,6 +38,7 @@ namespace BL
             Console.WriteLine();
             Console.WriteLine("Results:");
             Console.WriteLine(result);
+            return result;
 
         }
 
