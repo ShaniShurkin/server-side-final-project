@@ -27,7 +27,7 @@ namespace BL
             return mapper.Map<List<FoodDTO>>(foods);
         }
 
-        public async Task<FoodDTO> GetSingleAsync(int code)
+        public async Task<FoodDTO> GetSingleAsync(string code)
         {
             Food food = await foodRepository.GetSingleAsync(code);
             return mapper.Map<FoodDTO>(food);

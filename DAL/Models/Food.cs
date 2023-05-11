@@ -9,7 +9,7 @@
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
         [BsonElement("Code")]
-        public int Code { get; set; }
+        public string Code { get; set; }
         [BsonElement("english_name")]
         public string EnglishName { get; set; }
         [BsonElement("smlmitzrach")]
@@ -73,7 +73,7 @@
 
         #endregion
 
-        public Food(string id, int code, string englishName, int smlmitzrach, string shmmitzrach,
+        public Food(string id, string code, string englishName, int smlmitzrach, string shmmitzrach,
             int makor, double protein, double totalFat, double carbohydrates, double foodEnergy,
             double totalDietaryFiber, double calcium, double iron, double magnesium, double phosphorus,
             double potassium, double sodium, double vitaminAIu, double carotene, double vitaminE,

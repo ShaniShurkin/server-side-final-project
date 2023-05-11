@@ -20,7 +20,7 @@ namespace UI.Controllers
             return FoodService.GetAllAsync().Result;
         }
         [HttpGet("get/{code}")]
-        public async Task<ClientDTO> GetSingle(int code)
+        public async Task<FoodDTO> GetSingle(string code)
         {
             return FoodService.GetSingleAsync(code).Result;
 
