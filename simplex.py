@@ -234,14 +234,14 @@ from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 data = ""
-# @app.route('/process_data', methods=['POST'])
-# def process_data():
-#     data = json.loads(request.data)
-#     # do something with the data
+@app.route('/api/data', methods=['POST'])
+def process_data():
+    data = json.loads(request.data)
+    # do something with the data
     
 
 
-@app.route('/api/process_data', methods=['GET'])
+@app.route('/api/data', methods=['GET'])
 def get_data():
    return jsonify(data)
 
