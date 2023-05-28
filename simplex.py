@@ -1,19 +1,27 @@
-#!/usr/bin/env python
-# coding: utf-8
+# #!/usr/bin/env python
+# # coding: utf-8
 
-# In[25]:
-
-
-import matplotlib.pyplot as plt
-import numpy as np
-import pandas as pd 
-from pulp import * 
-import seaborn as sns
+# # In[25]:
 
 
-# In[26]:
+# import matplotlib.pyplot as plt
+# import numpy as np
+# import pandas as pd 
+# from pulp import * 
+# import seaborn as sns
 
 
+# # In[26]:
+
+# import json
+# import urllib.parse
+
+# encoded_json_string = sys.argv[1]
+# print(encoded_json_string)
+# json_string = urllib.parse.unquote(encoded_json_string)
+# print(json_string)
+# data = json.loads(json_string)
+# print(data)
 # data = pd.read_csv(r'C:\\Users\\User\\Desktop\\final project\\food.csv', encoding='UTF-16 LE', sep='\t')
 # #data.head(20)
 
@@ -147,7 +155,7 @@ import seaborn as sns
 #     e = meals_data.carbohydrates.tolist()
 #     f = meals_data.total_fat.tolist()
 #     p = meals_data.protein.tolist()
-# #    prob  = pulp.LpProblem( "Diet", LpMinimize )
+#     prob  = pulp.LpProblem( "Diet", LpMinimize )
 #     prob += pulp.lpSum( [x[food[i]]*c[i] for i in range(len(food))]  )
 #     prob += pulp.lpSum( [x[food[i]]*e[i] for i in range(len(x)) ] )>=E
 #     prob += pulp.lpSum( [x[food[i]]*f[i] for i in range(len(x)) ] )>=F
@@ -205,20 +213,40 @@ import seaborn as sns
 # diet = better_model(44,1600)['Sunday']
 
 
-# # In[ ]:
+# # # In[ ]:
 
 
 
 
 
-# # In[ ]:
+# # # In[ ]:
 
 
 
 
 
-# # In[ ]:
-print("Hi")
+# # # In[ ]:
+# print("Hi")
 
+
+import json
+from flask import Flask, request, jsonify
+
+app = Flask(__name__)
+data = ""
+# @app.route('/process_data', methods=['POST'])
+# def process_data():
+#     data = json.loads(request.data)
+#     # do something with the data
+    
+
+
+@app.route('/api/process_data', methods=['GET'])
+def get_data():
+   return jsonify(data)
+
+
+if __name__ == '__main__':
+    app.run()
 
 

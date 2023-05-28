@@ -26,10 +26,11 @@ namespace UI.Controllers
 
         }
         [HttpGet("simplex")]
-        public string getSimplex()
+        public async Task<string> getSimplex()
         {
-            MenuPlanning m = new();
-            return m.option1();
+            MenuPlanning menuPlanning = new MenuPlanning();
+            List<FoodDTO> foodList = await GetAll();
+            return menuPlanning.Option3Async(foodList).Result;
         }
     }
 }
