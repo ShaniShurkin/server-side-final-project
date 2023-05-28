@@ -45,10 +45,11 @@ namespace BL
         }
         public async Task<string> Option3Async(List<FoodDTO> foods)
         {
-            return await PostData();
-            /*return await GetData();*/
+            string json = JsonConvert.SerializeObject(foods);
+            return await PostData(json);
+           // return await GetData();
 
-            //string json = JsonConvert.SerializeObject(foods);
+            //
             //using (var client = new HttpClient())
             //{
             //    var content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
@@ -80,29 +81,29 @@ namespace BL
             }
         }
 
-        static async Task<string> PostData()
+        static async Task<string> PostData(string json)
         {
             using (HttpClient client = new HttpClient())
             {
                 string url = "http://localhost:5000/api/data"; // Replace with the actual server URL
 
                 // Create a sample request data
-                var requestData = new
-                {
-                    name = "John Doe",
-                    age = 30,
-                    email = "johndoe@example.com"
-                };
+                //var requestData = new
+                //{
+                //    name = "John Doe",
+                //    age = 30,
+                //    email = "johndoe@example.com"
+                //};
 
                 // Set request headers
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
                 // Convert the request data to JSON
-                var jsonRequest = JsonConvert.SerializeObject(requestData);
+                //var jsonRequest = JsonConvert.SerializeObject(requestData);
 
                 // Create the HTTP content with JSON
-                var content = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
 
                 // Send the POST request
                 HttpResponseMessage response = await client.PostAsync(url, content);

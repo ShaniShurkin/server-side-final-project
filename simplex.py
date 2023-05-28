@@ -231,18 +231,22 @@
 
 import json
 from flask import Flask, request, jsonify
-
-app = Flask(__name__)
 data = ""
+app = Flask(__name__)
+
 @app.route('/api/data', methods=['POST'])
 def process_data():
     data = json.loads(request.data)
+    c = data
+    return jsonify(data)
     # do something with the data
     
 
 
 @app.route('/api/data', methods=['GET'])
 def get_data():
+   c = data
+   x = 1
    return jsonify(data)
 
 
