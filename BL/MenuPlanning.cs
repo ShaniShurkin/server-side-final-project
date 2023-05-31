@@ -1,7 +1,12 @@
-﻿using Newtonsoft.Json;
+﻿using Amazon.Runtime.Internal;
+using DAL.Models;
+using Newtonsoft.Json;
 using Python.Runtime;
+using System;
 using System.Diagnostics;
 using System.Net.Http.Headers;
+using System.Text.Json;
+using ThirdParty.Json.LitJson;
 
 namespace BL
 {
@@ -120,6 +125,32 @@ namespace BL
 
             dynamic np = Py.Import("numpy");
             return (np.cos(np.pi * 2));
+        }
+
+        public async Task<string> Option4Async(List<FoodDTO> foods)
+        {
+            string json = JsonConvert.SerializeObject(foods);
+            
+            // Set up the HTTP client
+            string apiUrl = "http://localhost:5000/process_data";
+            HttpClient client = new HttpClient();
+
+            // Set up the data to send to the API
+            string inputData = JsonConvert.SerializeObject(json);
+            StringContent content = new StringContent(inputData, Encoding.UTF8, "application/json");
+
+            // Call the API and get the response
+            HttpResponseMessage response = await client.PostAsync(apiUrl, content);
+            string result = await response.Content.ReadAsStringAsync();
+            //byte[] bytes = Encoding.Default.GetBytes(result);
+            Encoding defaultEncoding = Encoding.Default;
+            byte[] bytes = defaultEncoding.GetBytes(result);
+            Encoding encoding2 = Encoding.UTF32;
+            string hebrewString2 = encoding2.GetString(bytes);
+            //result = Encoding.UTF8.GetString(bytes);
+            // Process the result as needed
+            Console.WriteLine(hebrewString2);
+            return hebrewString2;
         }
 
 

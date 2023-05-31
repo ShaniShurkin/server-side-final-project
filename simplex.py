@@ -3,18 +3,16 @@
 
 # # In[25]:
 
-
-# import matplotlib.pyplot as plt
-# import numpy as np
-# import pandas as pd 
-# from pulp import * 
-# import seaborn as sns
-
-
-# # In[26]:
-
-# import json
-# import urllib.parse
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd 
+from pulp import * 
+import seaborn as sns
+import json
+from flask import Flask, request, jsonify
+import urllib.parse
 
 # encoded_json_string = sys.argv[1]
 # print(encoded_json_string)
@@ -22,17 +20,29 @@
 # print(json_string)
 # data = json.loads(json_string)
 # print(data)
+app = Flask(__name__)
+@app.route('/process_data', methods=['POST'])
+def process_data():
+    # Get the data from the request
+    json_string = request.get_json()#.decode('UTF-8')
+    # json_string = json_string.encode('UTF-8')
+    json_data = json.loads(json_string)
+    e = type(json_data)
+    data = pd.DataFrame(json_data)
+    data = data[['Shmmitzrach','FoodEnergy','Carbohydrates','TotalFat','Protein']].dropna()
+    data = data.dropna()
+    response = data.to_json()
+    return response
+    
+
+
+
+
+
+
+
 # data = pd.read_csv(r'C:\\Users\\User\\Desktop\\final project\\food.csv', encoding='UTF-16 LE', sep='\t')
 # #data.head(20)
-
-
-# # In[27]:
-
-
-# data.info()
-
-
-# # In[28]:
 
 
 # data = data[['shmmitzrach','food_energy','carbohydrates','total_fat','protein']]
@@ -44,11 +54,6 @@
 
 
 # data_with_null = data[data.isnull().any(axis=1)]
-# #data_with_null
-
-
-# # In[30]:
-
 
 # data = data.dropna()
 # #data.info()
@@ -207,50 +212,19 @@
 #     return unpacked_tot
 
 
-# # In[53]:
-
-
-# diet = better_model(44,1600)['Sunday']
-
-
-# # # In[ ]:
 
 
 
 
 
-# # # In[ ]:
 
 
 
 
 
-# # # In[ ]:
-# print("Hi")
-
-
-import json
-from flask import Flask, request, jsonify
-data = ""
-app = Flask(__name__)
-
-@app.route('/api/data', methods=['POST'])
-def process_data():
-    data = json.loads(request.data)
-    c = data
-    return jsonify(data)
-    # do something with the data
-    
-
-
-@app.route('/api/data', methods=['GET'])
-def get_data():
-   c = data
-   x = 1
-   return jsonify(data)
 
 
 if __name__ == '__main__':
     app.run()
 
-
+# #diet = better_model(44,1600)['Sunday']
