@@ -29,8 +29,9 @@ namespace UI.Controllers
         public async Task<string> getSimplex()
         {
             MenuPlanning menuPlanning = new MenuPlanning();
-            List<FoodDTO> foodList = await GetAll();
-            return menuPlanning.Option3Async(foodList).Result;
+            //List<FoodDTO> foodList = await GetAll();
+            //return menuPlanning.Option3Async(foodList).Result;
+            return menuPlanning.UsePythonnet();
         }
     }
 }
