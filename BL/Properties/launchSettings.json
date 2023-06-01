@@ -1,10 +1,7 @@
 {
   "profiles": {
     "BL": {
-      "commandName": "Project",
-      "environmentVariables": {
-        "PYTHONNET_PYDLL": "python38.dll"
-      }
+      "commandName": "Project"
     }
   }
 }

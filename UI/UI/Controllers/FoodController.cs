@@ -31,7 +31,7 @@ namespace UI.Controllers
             MenuPlanning menuPlanning = new MenuPlanning();
             List<FoodDTO> foodList = await GetAll();
             //return menuPlanning.Option3Async(foodList).Result;
-            return await menuPlanning.Option4Async(foodList);
+            return await menuPlanning.CreateMenu(foodList);
         }
     }
 }
