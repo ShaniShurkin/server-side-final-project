@@ -3,11 +3,11 @@ namespace DAL
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddRepositories(this IServiceCollection collection, string ConnectionString, string DatabaseName, string ClientsCollectionName, string FoodsCollectionName)
+        public static IServiceCollection AddRepositories(this IServiceCollection collection, Dictionary<string, string> dbsettings)
         {
             //collection.Services.Configure<DietDatabaseSettings>(
             //collection.Configuration.GetSection("DietDatabaseSettings"));
-            collection.AddSingleton<IDietDatabaseSettings>(new DietDatabaseSettings(ConnectionString, DatabaseName, ClientsCollectionName, FoodsCollectionName));
+            collection.AddSingleton<IDietDatabaseSettings>(new DietDatabaseSettings(dbsettings));
             collection.AddSingleton<IDBManager, DBManager>();
             collection.AddSingleton<IFoodRepository, FoodRepository>();
             collection.AddSingleton<IClientRepository, ClientRepository>();

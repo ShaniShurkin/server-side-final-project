@@ -9,10 +9,13 @@ using ThirdParty.Json.LitJson;
 
 namespace BL
 {
-    public class MenuPlanning
+    public static class MenuPlanning
     {
-      
-        public async Task<string> CreateMenu(List<FoodDTO> foods)
+        //public static string CalculateCalories()
+        //{
+
+        //} 
+        public static async Task<string> CreateMenu(List<FoodDTO> foods)
         {
             string json = JsonConvert.SerializeObject(foods);
             string apiUrl = "http://localhost:5000/process_data";

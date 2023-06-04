@@ -6,5 +6,6 @@
         string ConnectionString { get; set; }
         string DatabaseName { get; set; }
         string FoodCollectionName { get; set; }
+        string CategoriesCollectionName { get; set; }
     }
 }

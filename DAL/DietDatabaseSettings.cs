@@ -7,14 +7,16 @@
         public string DatabaseName { get; set; } = null!;
 
         public string ClientsCollectionName { get; set; } = null!;
+        public string CategoriesCollectionName { get; set; } = null!;
         public string FoodCollectionName { get; set; } = null!;
-        public DietDatabaseSettings(string connectionString, string databaseName, string clientsCollectionName, string foodsCollectionName)
+        public DietDatabaseSettings(Dictionary<string, string> dbsettings)
         {
 
-            ConnectionString = connectionString;
-            DatabaseName = databaseName;
-            ClientsCollectionName = clientsCollectionName;
-            FoodCollectionName = foodsCollectionName;
+            ConnectionString = dbsettings["ConnectionString"];
+            DatabaseName = dbsettings["DatabaseName"];
+            ClientsCollectionName = dbsettings["ClientsCollectionName"];
+            CategoriesCollectionName = dbsettings["CategoriesCollectionName"];
+            FoodCollectionName = dbsettings["FoodsCollectionName"];
         }
     }
 }

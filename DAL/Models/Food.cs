@@ -16,6 +16,10 @@
         public int Smlmitzrach { get; set; }
         [BsonElement("shmmitzrach")]
         public string Shmmitzrach { get; set; }
+        [BsonElement("categories")]
+        public List<int> Categories { get; set; }
+        [BsonElement("short_name")]
+        public string ShortName { get; set; }
         [BsonElement("makor")]
         public int Makor { get; set; }
         [BsonElement("protein")]
@@ -52,65 +56,68 @@
         public double VitaminB6 { get; set; }
         [BsonElement("folate")]
         public double Folate { get; set; }
-        
+
         [BsonElement("vitamin_b12")]
         public double VitaminB12 { get; set; }
         [BsonElement("cholesterol")]
         public double Cholesterol { get; set; }
         [BsonElement("saturated_fat")]
         public double SaturatedFat { get; set; }
-        
+
         [BsonElement("vitamin_d")]
         public double VitaminD { get; set; }
         [BsonElement("total_sugars")]
         public double TotalSugars { get; set; }
-        
+
         [BsonElement("vitamin_a_re")]
         public double VitaminARe { get; set; }
-       
+
         [BsonElement("vitamin_k")]
         public double VitaminK { get; set; }
 
         #endregion
 
-        public Food(string id, string code, string englishName, int smlmitzrach, string shmmitzrach,
-            int makor, double protein, double totalFat, double carbohydrates, double foodEnergy,
-            double totalDietaryFiber, double calcium, double iron, double magnesium, double phosphorus,
-            double potassium, double sodium, double vitaminAIu, double carotene, double vitaminE,
-            double vitaminC, double vitaminB6, double folate, double vitaminB12, double cholesterol,
-            double saturatedFat, double vitaminD, double totalSugars, double vitaminARe, double vitaminK)
-        {
-            Id = id;
-            Code = code;
-            EnglishName = englishName;
-            Smlmitzrach = smlmitzrach;
-            Shmmitzrach = shmmitzrach;
-            Makor = makor;
-            Protein = protein;
-            TotalFat = totalFat;
-            Carbohydrates = carbohydrates;
-            FoodEnergy = foodEnergy;
-            TotalDietaryFiber = totalDietaryFiber;
-            Calcium = calcium;
-            Iron = iron;
-            Magnesium = magnesium;
-            Phosphorus = phosphorus;
-            Potassium = potassium;
-            Sodium = sodium;
-            VitaminAIu = vitaminAIu;
-            Carotene = carotene;
-            VitaminE = vitaminE;
-            VitaminC = vitaminC;
-            VitaminB6 = vitaminB6;
-            Folate = folate;
-            VitaminB12 = vitaminB12;
-            Cholesterol = cholesterol;
-            SaturatedFat = saturatedFat;
-            VitaminD = vitaminD;
-            TotalSugars = totalSugars;
-            VitaminARe = vitaminARe;
-            VitaminK = vitaminK;
-        }
-   
-     }
+        //   public Food(string id, string code, string englishName, int smlmitzrach, string shmmitzrach, int[] categories,
+        //       string shortName, int makor, double protein, double totalFat, double carbohydrates, double foodEnergy,
+        //       double totalDietaryFiber, double calcium, double iron, double magnesium, double phosphorus,
+        //       double potassium, double sodium, double vitaminAIu, double carotene, double vitaminE,
+        //       double vitaminC, double vitaminB6, double folate, double vitaminB12, double cholesterol,
+        //       double saturatedFat, double vitaminD, double totalSugars, double vitaminARe, double vitaminK)
+        //   {
+        //       Id = id;
+        //       Code = code;
+        //       EnglishName = englishName;
+        //       Smlmitzrach = smlmitzrach;
+        //       Shmmitzrach = shmmitzrach;
+        //       Categories = categories;
+        //       ShortName = shortName;
+        //       Makor = makor;
+        //       Protein = protein;
+        //       TotalFat = totalFat;
+        //       Carbohydrates = carbohydrates;
+        //       FoodEnergy = foodEnergy;
+        //       TotalDietaryFiber = totalDietaryFiber;
+        //       Calcium = calcium;
+        //       Iron = iron;
+        //       Magnesium = magnesium;
+        //       Phosphorus = phosphorus;
+        //       Potassium = potassium;
+        //       Sodium = sodium;
+        //       VitaminAIu = vitaminAIu;
+        //       Carotene = carotene;
+        //       VitaminE = vitaminE;
+        //       VitaminC = vitaminC;
+        //       VitaminB6 = vitaminB6;
+        //       Folate = folate;
+        //       VitaminB12 = vitaminB12;
+        //       Cholesterol = cholesterol;
+        //       SaturatedFat = saturatedFat;
+        //       VitaminD = vitaminD;
+        //       TotalSugars = totalSugars;
+        //       VitaminARe = vitaminARe;
+        //       VitaminK = vitaminK;
+        //   }
+
+        //}
+    }
 }

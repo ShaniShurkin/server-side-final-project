@@ -25,13 +25,17 @@ namespace UI.Controllers
             return FoodService.GetSingleAsync(code).Result;
 
         }
+        //[HttpPost("simplex")]
+        //public async Task<string> CreateMealStructure(string jsonStracture)
+        //{
+
+        //}
         [HttpGet("simplex")]
         public async Task<string> getSimplex()
         {
-            MenuPlanning menuPlanning = new MenuPlanning();
             List<FoodDTO> foodList = await GetAll();
             //return menuPlanning.Option3Async(foodList).Result;
-            return await menuPlanning.CreateMenu(foodList);
+            return await MenuPlanning.CreateMenu(foodList);
         }
     }
 }

@@ -11,7 +11,14 @@
             this.dBManager = dBManager;
             var database = this.dBManager.getDatabase();
             foodsCollection = database.GetCollection<Food>(settings.FoodCollectionName);
-        }
+            var cat = database.GetCollection<Category>(settings.CategoriesCollectionName);
+            List<Category> catList = cat.AsQueryable<Category>().ToListAsync().Result;
+            foreach (var item in catList)
+            {
+                Console.WriteLine( item.HebrewName);
+
+            }
+          }
 
         public async Task<string> AddAsync(Food food)
         {
