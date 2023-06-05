@@ -7,8 +7,8 @@ namespace DAL
     internal class ClientRepository : IClientRepository
 
     {
-        private IMongoCollection<Client> clientsCollection;
-        IDBManager dBManager;
+        readonly IMongoCollection<Client> clientsCollection;
+        readonly IDBManager dBManager;
         
 
         public ClientRepository(IDietDatabaseSettings settings, IDBManager dBManager)

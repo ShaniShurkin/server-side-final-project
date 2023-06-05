@@ -24,7 +24,7 @@ namespace BL
 
         public Task<bool> DeleteAsync(int code)
         {
-            throw new NotImplementedException();
+           return foodRepository.DeleteAsync(code);
         }
         //https://stackoverflow.com/questions/68221617/struggling-with-returning-a-task-using-mongodriver-and-catching-the-error
         public async Task<List<FoodDTO>> GetAllAsync()
@@ -39,9 +39,10 @@ namespace BL
             return mapper.Map<FoodDTO>(food);
         }
 
-        public Task<bool> UpdateAsync(int code, FoodDTO objectToUpdate)
+        public Task<bool> UpdateAsync(int code, FoodDTO foodToUpdate)
         {
-            throw new NotImplementedException();
+            Food food = mapper.Map<Food>(foodToUpdate);
+            return foodRepository.UpdatAsync(code, food);
         }
     }
 }
