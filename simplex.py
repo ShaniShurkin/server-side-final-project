@@ -33,7 +33,7 @@ def create_df(json_data):
     return data
   
 
-week_days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday']
+week_days = ['Sunday','Monday','Tuesday','Wednesday','Thurדדדsday','Friday']
 day_meals = ['Breakfast','Snack1','Lunch','Snack2','Dinner']
 
 # Around 10% for the snack number 1 

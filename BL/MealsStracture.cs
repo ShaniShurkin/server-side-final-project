@@ -7,11 +7,11 @@
         {
             this.Meals = new Dictionary<string, List<string>>
                 {
-                    { "Breakfast", new List<string> { "", "value2", "value3" } },
-                    { "Snack1", new List<string> { "value4", "value5" } },
-                    { "Lunch", new List<string> { "value6", "value7", "value8", "value9" } },
-                    { "Snack2", new List<string> { "value6", "value7", "value8", "value9" } },
-                    { "Dinner", new List<string> { "value6", "value7", "value8", "value9" } }
+                    { "Breakfast", new List<string> { "milky", "breads", "egg" } },
+                    { "Snack1", new List<string> { "snacks" } },
+                    { "Lunch", new List<string> { "fleshy", "soups" } },
+                    { "Snack2", new List<string> { "fruits" } },
+                    { "Dinner", new List<string> { "vegetables", "fish" } }
                 };
 
 
