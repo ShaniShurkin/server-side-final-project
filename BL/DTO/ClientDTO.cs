@@ -4,20 +4,20 @@
     {
         #region properties
         //public string Code { get; set; }
-        public string Id { get; set; }
+        public string Code { get; set; }
         public string FirstName { get; set; } = null!;
 
         public string LastName { get; set; } = null!;
 
         public string EmailAddress { get; set; } = null!;
 
-        public string? Gender { get; set; }
-
+        public Gender Gender { get; set; }
         //public DateTime? BornDate { get; set; }
 
         //public double Height { get; set; }
-
+        public ActivityLevel ActivityLevel { get; set; }
         public double Weight { get; set; }
+        public double Height { get; set; }
         public int Age { get; set; }
         //public int FitnessLevel { get; set; }
 

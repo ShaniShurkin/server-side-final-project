@@ -30,12 +30,14 @@ namespace UI.Controllers
         //{
 
         //}
-        [HttpGet("simplex")]
-        public async Task<string> getSimplex()
+        [HttpPost("simplex")]
+        public async Task<string> getSimplex(ClientDTO client)
         {
+            
             List<FoodDTO> foodList = await GetAll();
+            MenuPlanning menuPlanning = new MenuPlanning();//dependency injection
             //return menuPlanning.Option3Async(foodList).Result;
-            return await MenuPlanning.CreateMenu(foodList);
+            return await menuPlanning.CreateMenu(foodList, client);
         }
     }
 }

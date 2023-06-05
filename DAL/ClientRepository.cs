@@ -21,7 +21,7 @@ namespace DAL
         public async Task<string> AddAsync(Client client)
         {
             await clientsCollection.InsertOneAsync(client);
-            return client.Id;
+            return client.Code;
         }
         public async Task<bool> DeleteAsync(string id)
         {
@@ -37,14 +37,14 @@ namespace DAL
             return x;
         }
 
-        public async Task<Client> GetSingleAsync(string id)
+        public async Task<Client> GetSingleAsync(string code)
         {
-            FilterDefinition<Client> filter = Builders<Client>.Filter.Eq("Id", id);
+            FilterDefinition<Client> filter = Builders<Client>.Filter.Eq("Code", code);
             var client = await clientsCollection.Find(filter).FirstOrDefaultAsync();
             return client;
         }
 
-        public async Task<bool> UpdatAsync(string id, Client client)
+        public async Task<bool> UpdatAsync(string code, Client client)
         {
             //FilterDefinition<Client> filter = Builders<Client>.Filter.Eq("Id", client.Id);
             //var updated = await clientsCollection.ReplaceOneAsync(filter, client);
@@ -60,9 +60,9 @@ namespace DAL
             //UpdateDefinition<Client> update = Builders<Client>.Update(client);
             //await clientsCollection.UpdateOneAsync(filter, client);
             //return;
-            Client newClient = await GetSingleAsync(id);
+            Client newClient = await GetSingleAsync(code);
             client.ObjectId= newClient.ObjectId;
-            var x = await clientsCollection.ReplaceOneAsync(x => x.Id == id, client);
+            var x = await clientsCollection.ReplaceOneAsync(x => x.Code == code, client);
             if(x!= null)
             {
                 return true;

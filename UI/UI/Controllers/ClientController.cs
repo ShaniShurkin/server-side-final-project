@@ -18,24 +18,24 @@ namespace UI.Controllers
         {
             return ClientService.GetAllAsync().Result;
         }
-        [HttpGet("get/{id}")]
-        public async Task<ClientDTO> GetSingle(string id)
+        [HttpGet("get/{code}")]
+        public async Task<ClientDTO> GetSingle(string code)
         {
-            return ClientService.GetSingleAsync(id).Result;
+            return ClientService.GetSingleAsync(code).Result;
 
         }
 
-        [HttpDelete("delete/{id}")]
-        public async Task<bool> DeleteSingle(string id)
+        [HttpDelete("delete/{code}")]
+        public async Task<bool> DeleteSingle(string code)
         {
-            return await ClientService.DeleteAsync(id);
+            return await ClientService.DeleteAsync(code);
            
 
         }
-        [HttpPut("update/{id}")]
-        public async Task<bool> UpdateSingle(string id, ClientDTO client)
+        [HttpPut("update/{code}")]
+        public async Task<bool> UpdateSingle(string code, ClientDTO client)
         {
-            return await ClientService.UpdateAsync(id, client);
+            return await ClientService.UpdateAsync(code, client);
 
 
         }

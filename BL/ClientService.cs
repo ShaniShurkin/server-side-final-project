@@ -4,7 +4,7 @@
     {
         IClientRepository clientRepository;
         IMapper mapper;
-        public ClientService(IClientRepository clientRepository, IMapper mapper )
+        public ClientService(IClientRepository clientRepository, IMapper mapper)
         {
             this.clientRepository = clientRepository;
             this.mapper = mapper;
@@ -15,9 +15,9 @@
             return await clientRepository.AddAsync(client);
         }
 
-        public async Task<bool> DeleteAsync(string id)
+        public async Task<bool> DeleteAsync(string code)
         {
-            return await clientRepository.DeleteAsync(id);
+            return await clientRepository.DeleteAsync(code);
         }
 
         public async Task<List<ClientDTO>> GetAllAsync()
@@ -26,9 +26,9 @@
             return mapper.Map<List<ClientDTO>>(clients);
         }
 
-        public async Task<ClientDTO> GetSingleAsync(string id)
+        public async Task<ClientDTO> GetSingleAsync(string code)
         {
-            Client client = await clientRepository.GetSingleAsync(id);
+            Client client = await clientRepository.GetSingleAsync(code);
             return mapper.Map<ClientDTO>(client);
 
         }

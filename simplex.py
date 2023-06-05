@@ -18,9 +18,10 @@ app = Flask(__name__)
 @app.route('/process_data', methods=['POST'])
 def process_data():
     json_string = request.get_json()
-    json_data = json.loads(json_string)
-    data = create_df(json_data)
-    dict_result = better_model(60, 1500, data)
+    # json_data = dict.loads(json_string)
+    json_foods = json.loads(json_string["data"])
+    data = create_df(json_foods)
+    dict_result = better_model(json_string["weight"], json_string["calorie needs"] , data)
     json_response = json.dumps(dict_result, ensure_ascii=False)
     response = json_response
     return response
