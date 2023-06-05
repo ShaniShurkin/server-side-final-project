@@ -9,7 +9,7 @@ namespace DAL
     {
         private IMongoCollection<Client> clientsCollection;
         IDBManager dBManager;
-
+        
 
         public ClientRepository(IDietDatabaseSettings settings, IDBManager dBManager)
         {
@@ -18,14 +18,14 @@ namespace DAL
             clientsCollection = database.GetCollection<Client>(settings.ClientsCollectionName);
         }
 
-        public async Task<string> AddAsync(Client client)
+        public async Task<int> AddAsync(Client client)
         {
             await clientsCollection.InsertOneAsync(client);
             return client.Code;
         }
-        public async Task<bool> DeleteAsync(string id)
+        public async Task<bool> DeleteAsync(int code)
         {
-            FilterDefinition<Client> filter = Builders<Client>.Filter.Eq("Id", id);
+            FilterDefinition<Client> filter = Builders<Client>.Filter.Eq("Code", code);
             var result = await clientsCollection.FindOneAndDeleteAsync(filter);
             if (result != null)
                 return true;
@@ -33,18 +33,18 @@ namespace DAL
         }
         public async Task<List<Client>> GetAllAsync()
         {
-            var x = await clientsCollection.AsQueryable<Client>().ToListAsync();
-            return x;
+            var clientsList = await clientsCollection.AsQueryable<Client>().ToListAsync();
+            return clientsList;
         }
 
-        public async Task<Client> GetSingleAsync(string code)
+        public async Task<Client> GetSingleAsync(int code)
         {
             FilterDefinition<Client> filter = Builders<Client>.Filter.Eq("Code", code);
             var client = await clientsCollection.Find(filter).FirstOrDefaultAsync();
             return client;
         }
 
-        public async Task<bool> UpdatAsync(string code, Client client)
+        public async Task<bool> UpdatAsync(int code, Client client)
         {
             //FilterDefinition<Client> filter = Builders<Client>.Filter.Eq("Id", client.Id);
             //var updated = await clientsCollection.ReplaceOneAsync(filter, client);

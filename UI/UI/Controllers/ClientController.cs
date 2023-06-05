@@ -19,21 +19,21 @@ namespace UI.Controllers
             return ClientService.GetAllAsync().Result;
         }
         [HttpGet("get/{code}")]
-        public async Task<ClientDTO> GetSingle(string code)
+        public async Task<ClientDTO> GetSingle(int code)
         {
             return ClientService.GetSingleAsync(code).Result;
 
         }
 
         [HttpDelete("delete/{code}")]
-        public async Task<bool> DeleteSingle(string code)
+        public async Task<bool> DeleteSingle(int code)
         {
             return await ClientService.DeleteAsync(code);
            
 
         }
         [HttpPut("update/{code}")]
-        public async Task<bool> UpdateSingle(string code, ClientDTO client)
+        public async Task<bool> UpdateSingle(int code, ClientDTO client)
         {
             return await ClientService.UpdateAsync(code, client);
 
@@ -41,7 +41,7 @@ namespace UI.Controllers
         }
 
         [HttpPost("add")]
-        public async Task<string> AddAsync(ClientDTO client)
+        public async Task<int> AddAsync(ClientDTO client)
         {
             return await ClientService.AddAsync(client);
         }

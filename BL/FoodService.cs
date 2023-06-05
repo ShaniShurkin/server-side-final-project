@@ -6,17 +6,23 @@ namespace BL
     {
         IFoodRepository foodRepository;
         IMapper mapper;
+        public static int CurrentCode { get; internal set; }
         public FoodService(IFoodRepository foodRepository, IMapper mapper)
         {
             this.foodRepository = foodRepository;
             this.mapper = mapper;
+            var sortedFoodList = foodRepository.GetAllAsync().Result
+                .OrderBy(f => f.Code).ToList();
+            CurrentCode = sortedFoodList.Last().Code;
         }
-        public Task<string> AddAsync(FoodDTO objectToAdd)
+        public Task<int> AddAsync(FoodDTO objectToAdd)
         {
-            throw new NotImplementedException();
+            CurrentCode++;
+            Food food = mapper.Map<Food>(objectToAdd);
+            return foodRepository.AddAsync(food);
         }
 
-        public Task<bool> DeleteAsync(string id)
+        public Task<bool> DeleteAsync(int code)
         {
             throw new NotImplementedException();
         }
@@ -27,13 +33,13 @@ namespace BL
             return mapper.Map<List<FoodDTO>>(foods);
         }
 
-        public async Task<FoodDTO> GetSingleAsync(string code)
+        public async Task<FoodDTO> GetSingleAsync(int code)
         {
             Food food = await foodRepository.GetSingleAsync(code);
             return mapper.Map<FoodDTO>(food);
         }
 
-        public Task<bool> UpdateAsync(string id, FoodDTO objectToUpdate)
+        public Task<bool> UpdateAsync(int code, FoodDTO objectToUpdate)
         {
             throw new NotImplementedException();
         }

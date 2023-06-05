@@ -20,8 +20,11 @@ def process_data():
     json_string = request.get_json()
     # json_data = dict.loads(json_string)
     json_foods = json.loads(json_string["data"])
+    calories = int(json_string["calorie needs"])
+    weight = int(json_string["weight"])
     data = create_df(json_foods)
-    dict_result = better_model(json_string["weight"], json_string["calorie needs"] , data)
+    
+    dict_result = better_model(weight, calories , data)
     json_response = json.dumps(dict_result, ensure_ascii=False)
     response = json_response
     return response
@@ -33,7 +36,7 @@ def create_df(json_data):
     return data
   
 
-week_days = ['Sunday','Monday','Tuesday','Wednesday','Thurדדדsday','Friday']
+week_days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday']
 day_meals = ['Breakfast','Snack1','Lunch','Snack2','Dinner']
 
 # Around 10% for the snack number 1 
@@ -79,6 +82,10 @@ def extract_gram(table):
     return res
 
 def model(prob,kg,calories,meal,meals_data):
+    # calories_per_meal = dict(zip(day_meals,meal_calories))
+    # x = calories_per_meal
+    # x1 = calories_per_meal[meal]
+    # x2 = calories
     calories = calories_per_meal[meal]*calories
     G = extract_gram(build_nutritional_values(kg,calories))
     E = G['Carbohydrates Grams']

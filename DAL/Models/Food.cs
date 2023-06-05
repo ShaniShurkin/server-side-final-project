@@ -9,7 +9,7 @@
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
         [BsonElement("Code")]
-        public string Code { get; set; }
+        public int Code { get; set; }
         [BsonElement("english_name")]
         public string EnglishName { get; set; }
         [BsonElement("smlmitzrach")]

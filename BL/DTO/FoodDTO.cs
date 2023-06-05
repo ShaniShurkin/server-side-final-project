@@ -6,7 +6,7 @@ namespace BL.DTO
     public class FoodDTO
     {
         #region properties
-        public string Code { get; set; }
+        public int Code { get; set; }
         public string EnglishName { get; set; }
         public int Smlmitzrach { get; set; }
         public string Shmmitzrach { get; set; }

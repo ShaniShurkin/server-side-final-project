@@ -20,16 +20,14 @@
             }
           }
 
-        public async Task<string> AddAsync(Food food)
+        public async Task<int> AddAsync(Food food)
         {
             await foodsCollection.InsertOneAsync(food);
-            //return id
-
-            return food.Id;
+             return food.Code;
 
         }
 
-        public async Task<bool> DeleteAsync(string code)
+        public async Task<bool> DeleteAsync(int code)
         {
             FilterDefinition<Food> filter = Builders<Food>.Filter.Eq("Code", code);
             await foodsCollection.DeleteOneAsync(filter);
@@ -45,7 +43,7 @@
         }
 
 
-        public async Task<Food> GetSingleAsync(string code)
+        public async Task<Food> GetSingleAsync(int code)
         {
             FilterDefinition<Food> filter = Builders<Food>.Filter.Eq("Code", code);
             var food = await foodsCollection.Find(filter).FirstOrDefaultAsync();
@@ -53,7 +51,7 @@
  
         }
 
-        public async Task<bool> UpdatAsync(string id, Food food)
+        public async Task<bool> UpdatAsync(int code, Food food)
         {
             FilterDefinition<Food> filter = Builders<Food>.Filter.Eq("Code", food.Code);
             await foodsCollection.ReplaceOneAsync(filter, food);                         

@@ -3,9 +3,9 @@
     public interface IRepsitory<T>
     {
         Task<List<T>> GetAllAsync();
-        Task<T> GetSingleAsync(string id);
-        Task<string> AddAsync(T objectToAdd);
-        Task<bool> UpdatAsync(string id, T objectToUpdate);
-        Task<bool> DeleteAsync(string id);
+        Task<T> GetSingleAsync(int code);
+        Task<int> AddAsync(T objectToAdd);
+        Task<bool> UpdatAsync(int code, T objectToUpdate);
+        Task<bool> DeleteAsync(int code);
     }
 }

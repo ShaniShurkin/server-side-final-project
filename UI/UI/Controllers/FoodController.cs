@@ -20,7 +20,7 @@ namespace UI.Controllers
             return FoodService.GetAllAsync().Result;
         }
         [HttpGet("get/{code}")]
-        public async Task<FoodDTO> GetSingle(string code)
+        public async Task<FoodDTO> GetSingle(int code)
         {
             return FoodService.GetSingleAsync(code).Result;
 
@@ -33,10 +33,10 @@ namespace UI.Controllers
         [HttpPost("simplex")]
         public async Task<string> getSimplex(ClientDTO client)
         {
-            
+            await Console.Out.WriteLineAsync(client.ToString());
             List<FoodDTO> foodList = await GetAll();
-            MenuPlanning menuPlanning = new MenuPlanning();//dependency injection
             //return menuPlanning.Option3Async(foodList).Result;
+            MenuPlanning menuPlanning = new MenuPlanning(); 
             return await menuPlanning.CreateMenu(foodList, client);
         }
     }
