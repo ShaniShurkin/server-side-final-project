@@ -1,6 +1,6 @@
 ﻿namespace BL.Interfaces
 {
-    public interface IFoodService : IService<FoodDTO>
+    public interface IFoodService : IService<FoodDTO, int>
     {
     }
 }

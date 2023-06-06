@@ -1,6 +1,6 @@
 ﻿namespace BL.Interfaces
 {
-    public interface IClientService : IService<ClientDTO>
+    public interface IClientService : IService<ClientDTO, string>
     {
         
     }

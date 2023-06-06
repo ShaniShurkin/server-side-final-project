@@ -1,10 +1,10 @@
 ﻿namespace BL.Interfaces
 {
-    public interface IService<T>
+    public interface IService<T, S>
     {
         Task<List<T>> GetAllAsync();
 
-        Task<T> GetSingleAsync(int code);
+        Task<T?> GetSingleAsync(S code);
 
         Task<int> AddAsync(T objectToAdd);
 

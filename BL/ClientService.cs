@@ -44,10 +44,16 @@ namespace BL
             return mapper.Map<List<ClientDTO>>(clients);
         }
 
-        public async Task<ClientDTO> GetSingleAsync(int code)
+        public async Task<ClientDTO?> GetSingleAsync(string email)
         {
-            Client client = await clientRepository.GetSingleAsync(code);
-            return mapper.Map<ClientDTO>(client);
+            Client? client = await clientRepository.GetSingleAsync(email);
+            return mapper.Map<ClientDTO?>(client);
+
+        }
+        public async Task<ClientDTO?> GetSingleAsync(int code)
+        {
+            Client? client = await clientRepository.GetSingleAsync(code);
+            return mapper.Map<ClientDTO?>(client);
 
         }
 
@@ -62,5 +68,7 @@ namespace BL
             //return true;
             //return await clientRepository.UpdatAsync(client);
         }
+
+        
     }
 }

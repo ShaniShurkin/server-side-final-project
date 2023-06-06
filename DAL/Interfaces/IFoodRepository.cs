@@ -1,6 +1,6 @@
 ﻿namespace DAL.Interfaces
 {
-    public interface IFoodRepository : IRepsitory<Food>
+    public interface IFoodRepository : IRepsitory<Food, int>
     {
 
     }

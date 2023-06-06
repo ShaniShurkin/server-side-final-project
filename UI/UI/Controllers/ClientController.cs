@@ -18,10 +18,10 @@ namespace UI.Controllers
         {
             return ClientService.GetAllAsync().Result;
         }
-        [HttpGet("get/{code}")]
-        public async Task<ClientDTO> GetSingle(int code)
+        [HttpGet("get/{email}")]
+        public async Task<ClientDTO?> GetSingle(string email)
         {
-            return ClientService.GetSingleAsync(code).Result;
+            return await ClientService.GetSingleAsync(email);
 
         }
 

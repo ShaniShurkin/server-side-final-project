@@ -24,7 +24,7 @@
         //public Route Route { get; set; }
         //public int Route { get; set; }
 
-        public DateTime StartDate { get; set; }
+        //public DateTime StartDate { get; set; }
         public ActivityLevel ActivityLevel { get; internal set; }
 
         //public int Duration { get; set; }

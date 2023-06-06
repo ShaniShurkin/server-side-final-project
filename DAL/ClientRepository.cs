@@ -37,7 +37,13 @@ namespace DAL
             return clientsList;
         }
 
-        public async Task<Client> GetSingleAsync(int code)
+        public async Task<Client?> GetSingleAsync(string email)
+        {
+            FilterDefinition<Client> filter = Builders<Client>.Filter.Eq("EmailAddress", email);
+            var client = await clientsCollection.Find(filter).FirstOrDefaultAsync();
+            return client;
+        }
+        public async Task<Client?> GetSingleAsync(int code)
         {
             FilterDefinition<Client> filter = Builders<Client>.Filter.Eq("Code", code);
             var client = await clientsCollection.Find(filter).FirstOrDefaultAsync();
