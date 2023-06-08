@@ -54,8 +54,8 @@ namespace BL
         {
             Client? client = await clientRepository.GetSingleAsync(code);
             return mapper.Map<ClientDTO?>(client);
-
         }
+
 
         public async Task<bool> UpdateAsync(int code, ClientDTO objectToUpdate)
         {

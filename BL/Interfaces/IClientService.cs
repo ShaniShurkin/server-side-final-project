@@ -2,6 +2,6 @@
 {
     public interface IClientService : IService<ClientDTO, string>
     {
-        
+        Task<ClientDTO?> GetSingleAsync(int code);
     }
 }

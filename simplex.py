@@ -17,13 +17,12 @@ import urllib.parse
 app = Flask(__name__)
 @app.route('/process_data', methods=['POST'])
 def process_data():
-    json_string = request.get_json()
+    json_data = request.get_json()
     # json_data = dict.loads(json_string)
-    json_foods = json.loads(json_string["data"])
-    calories = int(json_string["calorie needs"])
-    weight = int(json_string["weight"])
+    json_foods = json.loads(json_data["data"])
+    calories = int(json_data["calorie needs"])
+    weight = int(json_data["weight"])
     data = create_df(json_foods)
-    
     dict_result = better_model(weight, calories , data)
     json_response = json.dumps(dict_result, ensure_ascii=False)
     response = json_response
@@ -92,7 +91,7 @@ def model(prob,kg,calories,meal,meals_data):
     F = G['Fat Grams']
     P = G['Protein Grams']
     meals_data = meals_data[meals_data.FoodEnergy!=0]
-    food = meals_data.Shmmitzrach.tolist()
+    food = meals_data.EnglishName.tolist()
     c = meals_data.FoodEnergy.tolist()
     x = pulp.LpVariable.dicts( "x", indices = food, lowBound=0, upBound=1.5, cat='Continuous', indexStart=[] )
     e = meals_data.Carbohydrates.tolist()
@@ -118,6 +117,8 @@ def model(prob,kg,calories,meal,meals_data):
     sol.Quantity = sol.Quantity*100
     sol = sol.rename(columns={'Quantity':'Quantity (g)'})
     df_sol = sol.to_dict()
+    he_food = dict(zip(df_sol['Food'].keys(), meals_data[meals_data.index.isin(df_sol['Food'].keys())]['Shmmitzrach'].tolist()))
+    df_sol['he_food'] = he_food
     return df_sol
 def better_model(kg,calories,data):
     days_data = random_dataset_day(data)

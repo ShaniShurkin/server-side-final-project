@@ -30,14 +30,6 @@ namespace UI.Controllers
         //{
 
         //}
-        [HttpPost("simplex")]
-        public async Task<string> getSimplex(ClientDTO client)
-        {
-            await Console.Out.WriteLineAsync(client.ToString());
-            List<FoodDTO> foodList = await GetAll();
-            //return menuPlanning.Option3Async(foodList).Result;
-            MenuPlanning menuPlanning = new MenuPlanning(); 
-            return await menuPlanning.CreateMenu(foodList, client);
-        }
+        
     }
 }

@@ -26,6 +26,7 @@
 
         //public DateTime StartDate { get; set; }
         public ActivityLevel ActivityLevel { get; internal set; }
+        public string? Menu { get; set; }
 
         //public int Duration { get; set; }
 

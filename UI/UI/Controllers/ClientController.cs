@@ -16,7 +16,7 @@ namespace UI.Controllers
         [HttpGet]
         public async Task<List<ClientDTO>> GetAll()
         {
-            return ClientService.GetAllAsync().Result;
+            return await ClientService.GetAllAsync();
         }
         [HttpGet("get/{email}")]
         public async Task<ClientDTO?> GetSingle(string email)

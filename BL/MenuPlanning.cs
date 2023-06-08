@@ -11,7 +11,7 @@ namespace BL
 {
     public class MenuPlanning
     {
-        public int CalculateCalories(ClientDTO client)
+        public static int CalculateCalories(ClientDTO client)
         {
             // Calculate BMR based on gender
             double bmr;
@@ -44,18 +44,20 @@ namespace BL
             // Print the result
         }
 
-        public async Task<string> CreateMenu(List<FoodDTO> foods, ClientDTO client)
+        public static async Task<string> CreateMenu(List<FoodDTO> foods, ClientDTO client)
         {
             double calorieNeeds = CalculateCalories(client);
             string json = JsonConvert.SerializeObject(foods);
-            Dictionary<string, string> dict = new Dictionary<string, string>();
-            dict.Add("data", json);
-            dict.Add("calorie needs", calorieNeeds.ToString());
-            dict.Add("weight", client.Weight.ToString());
+            Dictionary<string, string> dict = new()
+            {
+                { "data", json },
+                { "calorie needs", calorieNeeds.ToString() },
+                { "weight", client.Weight.ToString() }
+            };
             string apiUrl = "http://localhost:5000/process_data";
-            HttpClient httpClient = new HttpClient();
+            HttpClient httpClient = new();
             string jsonData = JsonConvert.SerializeObject(dict);
-            StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+            StringContent content = new(jsonData, Encoding.UTF8, "application/json");
             HttpResponseMessage response = await httpClient.PostAsync(apiUrl, content);
             string result = await response.Content.ReadAsStringAsync();
             Console.WriteLine(result);
