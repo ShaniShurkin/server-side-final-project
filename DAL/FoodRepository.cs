@@ -40,10 +40,12 @@
 
         public async Task<bool> DeleteAsync(int code)
         {
-            FilterDefinition<Food> filter = Builders<Food>.Filter.Eq("Code", code);
+            FilterDefinition<Food> filter = Builders<Food>
+                .Filter.Eq("Code", code);
             try
             {
-                var result = await foodsCollection.FindOneAndDeleteAsync(filter);
+                var result = await foodsCollection
+                    .FindOneAndDeleteAsync(filter);
                 if (result != null)
                     return true;
                 return false;
@@ -57,7 +59,8 @@
         {
             try
             {
-                var foodsList = await foodsCollection.AsQueryable<Food>().ToListAsync();
+                var foodsList = await foodsCollection
+                    .AsQueryable<Food>().ToListAsync();
                 return foodsList;
             }
             catch
@@ -68,29 +71,24 @@
         }
 
 
-        public async Task<Food> GetSingleAsync(int code)
+        public async Task<Food?> GetSingleAsync(int code)
         {
-            FilterDefinition<Food> filter = Builders<Food>.Filter.Eq("Code", code);
-            try
-            {
-                var food = await foodsCollection.Find(filter).FirstOrDefaultAsync();
-                return food;
-            }
-            catch
-            {
-                return null;
-                ////
-            }
+            FilterDefinition<Food> filter = Builders<Food>
+                .Filter.Eq("Code", code);
 
-
-        }
+            return await foodsCollection.Find(filter)
+                .FirstOrDefaultAsync();
+                 
+         }
 
         public async Task<bool> UpdatAsync(int code, Food food)
         {
-            FilterDefinition<Food> filter = Builders<Food>.Filter.Eq("Code", food.Code);
+            FilterDefinition<Food> filter = Builders<Food>
+                .Filter.Eq("Code", food.Code);
             try
             {
-                var updatedFood = await foodsCollection.ReplaceOneAsync(filter, food);
+                var updatedFood = await foodsCollection
+                    .ReplaceOneAsync(filter, food);
                 if (updatedFood != null) return true;
                 return false;
             }

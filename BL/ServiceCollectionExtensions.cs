@@ -9,6 +9,7 @@ namespace BL
         {
             collection.AddSingleton<IClientService, ClientService>();
             collection.AddSingleton<IFoodService, FoodService>();
+            collection.AddSingleton<IMenuService, MenuService>();
             collection.AddRepositories(dbsettings);
             collection.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             //collection.AddAutoMapper(typeof(ClientProfile));

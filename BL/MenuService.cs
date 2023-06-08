@@ -1,17 +1,26 @@
-﻿using Amazon.Runtime.Internal;
-using DAL.Models;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
-using System.Diagnostics;
-using System.Net.Http.Headers;
-using System.Text.Json;
-using ThirdParty.Json.LitJson;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace BL
 {
-    public class MenuPlanning
+    internal class MenuService:IMenuService
     {
-        public static int CalculateCalories(ClientDTO client)
+        private readonly IMenuRepository menuRepository; 
+        public MenuService(IMenuRepository menuRepository)
+        {
+
+            this.menuRepository = menuRepository;
+
+        }
+        public async Task<bool> UpdateMenu(int code, string menu)
+        {
+           return await menuRepository.UpdateMenu(code, menu);
+        }
+        public int CalculateCalories(ClientDTO client)
         {
             // Calculate BMR based on gender
             double bmr;
@@ -44,7 +53,7 @@ namespace BL
             // Print the result
         }
 
-        public static async Task<string> CreateMenu(List<FoodDTO> foods, ClientDTO client)
+        public async Task<string> CreateMenu(List<FoodDTO> foods, ClientDTO client)
         {
             double calorieNeeds = CalculateCalories(client);
             string json = JsonConvert.SerializeObject(foods);
@@ -63,7 +72,6 @@ namespace BL
             Console.WriteLine(result);
             return result;
         }
-
 
     }
 }

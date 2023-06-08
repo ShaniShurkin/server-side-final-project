@@ -5,8 +5,8 @@ namespace BL
 {
     internal class ClientService : IClientService
     {
-        IClientRepository clientRepository;
-        IMapper mapper;
+        readonly IClientRepository clientRepository;
+        readonly IMapper mapper;
         readonly List<Client> clients;   
         public static int CurrentCode { get; internal set; } = 0;
 

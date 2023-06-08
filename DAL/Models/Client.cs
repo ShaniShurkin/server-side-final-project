@@ -44,6 +44,8 @@ public class Client
     public double[] Progress { get; set; }
     [BsonElement("food")]
     public Dictionary<string, int> Foods { get; set; }
+    [BsonElement("menu")]
+    public string Menu { get; set; }
     #endregion
 
 
