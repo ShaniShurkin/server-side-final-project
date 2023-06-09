@@ -3,7 +3,7 @@
     public class ClientDTO
     {
         #region properties
-        //public string Code { get; set; }
+        public int Code { get; set; }
         //public string Id { get; set; }
         public string FirstName { get; set; } = null!;
 

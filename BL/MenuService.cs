@@ -1,15 +1,10 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BL
 {
-    internal class MenuService:IMenuService
+    internal class MenuService : IMenuService
     {
-        private readonly IMenuRepository menuRepository; 
+        private readonly IMenuRepository menuRepository;
         public MenuService(IMenuRepository menuRepository)
         {
 
@@ -18,7 +13,7 @@ namespace BL
         }
         public async Task<bool> UpdateMenu(int code, string menu)
         {
-           return await menuRepository.UpdateMenu(code, menu);
+            return await menuRepository.UpdateMenu(code, menu);
         }
         public int CalculateCalories(ClientDTO client)
         {
@@ -57,11 +52,20 @@ namespace BL
         {
             double calorieNeeds = CalculateCalories(client);
             string json = JsonConvert.SerializeObject(foods);
+            Dictionary<string, double> mealsCalories = new()
+            {
+                {"Breakfast",0.15},
+                {"Snack1",0.1},
+                {"Lunch",0.35 },
+                {"Snack2", 0.1},
+                {"Dinner",0.3 }
+            };
             Dictionary<string, string> dict = new()
             {
-                { "data", json },
-                { "calorie needs", calorieNeeds.ToString() },
-                { "weight", client.Weight.ToString() }
+                {"data", json },
+                {"calorieConsumption", calorieNeeds.ToString() },
+                {"mealsCalories",  JsonConvert.SerializeObject(mealsCalories) },
+                {"weight", client.Weight.ToString() }
             };
             string apiUrl = "http://localhost:5000/process_data";
             HttpClient httpClient = new();

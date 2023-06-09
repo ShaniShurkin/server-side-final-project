@@ -35,7 +35,7 @@ namespace UI.Controllers
             return client.Menu;
         }
         [HttpPost("save/{code}")]
-        public async Task<bool> CreateMenu([FromBody]object menu, int code)
+        public async Task<bool> UpdateMenu([FromBody]object menu, int code)
         {//, [FromBody]string menu
             bool res =  await menuService.UpdateMenu(code, menu.ToString());
             return res;
