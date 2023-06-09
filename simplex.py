@@ -41,7 +41,7 @@ def process_data():
     res_model = []
     for day in week_days:
         day_data = days_data[day]
-        meals_data = random_dataset_meal(data, day_data, day_meals)
+        meals_data = random_dataset_meal(len(data), day_data, day_meals)
         meal_model = []
         for meal in day_meals:
             meal_data = meals_data[meal]
@@ -75,14 +75,23 @@ def random_dataset_day(data):
         day_data.append(frac_data.loc[split_values[s]:split_values[s+1]])
     return dict(zip(week_days,day_data))
 
-def random_dataset_meal(data,day_data, day_meals):
+# to solve the problem if there are the same meals
+def random_dataset_meal(data_len,day_data, day_meals, meal_categories):
+    meal_categories = {"meal1":{"categories":[1,2,3], "calories":0.5},"meal2":[4,5],"meal3":[6,1],"meal4":[7,2,8],"meal5":[9,1,4,5]}
     frac_data = day_data.sample(frac=1).reset_index().drop('index',axis=1)
-    split_values_m = np.linspace(0,len(data)/len(week_days),len(day_meals)+1).astype(int)
-    split_values_m[-1] = split_values_m[-1]-1
+    # split_values_m = np.linspace(0,data_len/len(week_days),len(day_meals)+1).astype(int)
+    # split_values_m[-1] = split_values_m[-1]-1
     #frac_data.rename(columns={'':"index"}, inplace=True)
+    #meals_data = []
+    # for s in range(len(split_values_m)-1):
+    #     meals_data.append(frac_data.loc[split_values_m[s]:split_values_m[s+1]])
     meals_data = []
-    for s in range(len(split_values_m)-1):
-        meals_data.append(frac_data.loc[split_values_m[s]:split_values_m[s+1]])
+    for m in meal_categories:
+        meal_data = []
+        for f in frac_data:
+            if f.category.isin(meal_categories[m].categories):
+                meal_data.append(f)
+        meals_data.append(meal_data)
     return dict(zip(day_meals,meals_data))
 
 def build_nutritional_values(kg,calories):
