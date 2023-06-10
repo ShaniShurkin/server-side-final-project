@@ -89,8 +89,10 @@ def random_dataset_meal(data_len,day_data, day_meals, meal_categories):
     for m in meal_categories:
         meal_data = []
         for f in frac_data:
-            if f.category.isin(meal_categories[m].categories):
-                meal_data.append(f)
+            for c in f.categories:
+                if f.categories[c].isin(meal_categories[m].categories):
+                    meal_data.append(f)
+                    break
         meals_data.append(meal_data)
     return dict(zip(day_meals,meals_data))
 
