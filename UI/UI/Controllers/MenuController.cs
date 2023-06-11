@@ -1,8 +1,7 @@
 ﻿using BL.DTO;
-using BL;
+using BL.Interfaces;
 using DAL.Models;
 using Microsoft.AspNetCore.Mvc;
-using BL.Interfaces;
 
 namespace UI.Controllers
 {
@@ -14,11 +13,11 @@ namespace UI.Controllers
         readonly IClientService clientService;
         readonly IFoodService foodService;
         readonly IMenuService menuService;
-        public MenuController(IClientService clientService, IFoodService foodService, IMenuService menuService) 
+        public MenuController(IClientService clientService, IFoodService foodService, IMenuService menuService)
         {
             this.clientService = clientService;
-            this.foodService=foodService;
-            this.menuService=menuService;   
+            this.foodService = foodService;
+            this.menuService = menuService;
         }
         [HttpPost("get-menu/{code}")]
         public async Task<string> GetMenu(int code)
@@ -29,15 +28,15 @@ namespace UI.Controllers
             {
                 return "there is a problem";
             }
-            
+
             ////try antd catch
             client.Menu = await menuService.CreateMenu(foodList, client);
             return client.Menu;
         }
         [HttpPost("save/{code}")]
-        public async Task<bool> UpdateMenu([FromBody]object menu, int code)
+        public async Task<bool> UpdateMenu([FromBody] object menu, int code)
         {//, [FromBody]string menu
-            bool res =  await menuService.UpdateMenu(code, menu.ToString());
+            bool res = await menuService.UpdateMenu(code, menu.ToString());
             return res;
         }
 

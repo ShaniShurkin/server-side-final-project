@@ -45,7 +45,7 @@ namespace BL
                     break;
             }
             return (int)calorieNeeds;
-            // Print the result
+
         }
 
         public async Task<string> CreateMenu(List<FoodDTO> foods, ClientDTO client)
@@ -60,10 +60,19 @@ namespace BL
                 {"Snack2", 0.1},
                 {"Dinner",0.3 }
             };
+            Dictionary<string, int[]> mealCategories = new()
+            {
+                {"Breakfast", new int[]{1, 2, 3 } },
+                {"Snack1", new int[]{4, 5 }},
+                {"Lunch", new int[]{6, 1 } },
+                {"Snack2", new int[]{7, 2, 8}},
+                {"Dinner", new int[]{9, 1, 4, 5 } }
+            };
             Dictionary<string, string> dict = new()
             {
                 {"data", json },
                 {"calorieConsumption", calorieNeeds.ToString() },
+                {"mealCategories", JsonConvert.SerializeObject(mealCategories) },
                 {"mealsCalories",  JsonConvert.SerializeObject(mealsCalories) },
                 {"weight", client.Weight.ToString() }
             };
