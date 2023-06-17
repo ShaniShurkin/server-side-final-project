@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BL
+namespace BL.DTO
 {
-    public enum Gender
+    public enum ActivityLevel
     {
-        male,
-        female,
+        sedentary,
+        moderate,
+        active,
     }
 }

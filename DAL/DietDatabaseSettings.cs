@@ -11,12 +11,22 @@
         public string FoodCollectionName { get; set; } = null!;
         public DietDatabaseSettings(Dictionary<string, string> dbsettings)
         {
-
-            ConnectionString = dbsettings["ConnectionString"];
-            DatabaseName = dbsettings["DatabaseName"];
-            ClientsCollectionName = dbsettings["ClientsCollectionName"];
-            CategoriesCollectionName = dbsettings["CategoriesCollectionName"];
-            FoodCollectionName = dbsettings["FoodsCollectionName"];
+            try
+            {
+                ConnectionString = dbsettings["ConnectionString"];
+                DatabaseName = dbsettings["DatabaseName"];
+                ClientsCollectionName = dbsettings["ClientsCollectionName"];
+                CategoriesCollectionName = dbsettings["CategoriesCollectionName"];
+                FoodCollectionName = dbsettings["FoodsCollectionName"];
+            }
+            catch (MongoConnectionException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

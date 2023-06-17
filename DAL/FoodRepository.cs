@@ -7,22 +7,26 @@
         public FoodRepository(IDietDatabaseSettings settings, IDBManager dBManager)
         {
             //to check if DI....
-            this.dBManager = dBManager;
             try
             {
+                this.dBManager = dBManager;
                 var database = this.dBManager.getDatabase();
                 foodsCollection = database.GetCollection<Food>(settings.FoodCollectionName);
                 //var cat = database.GetCollection<Category>(settings.CategoriesCollectionName);
                 //List<Category> catList = cat.AsQueryable<Category>().ToListAsync().Result;
 
             }
-            catch (Exception)
+            catch (MongoConnectionException ex)
             {
-                ////////
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
 
 
-          }
+        }
 
         public async Task<int> AddAsync(Food food)
         {
@@ -31,27 +35,32 @@
                 await foodsCollection.InsertOneAsync(food);
                 return food.Code;
             }
-            catch (Exception) {
-                return 0; 
-                ////
+            catch (MongoWriteException ex)
+            {
+                throw ex;
             }
-            
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
         }
 
         public async Task<bool> DeleteAsync(int code)
         {
-            FilterDefinition<Food> filter = Builders<Food>
-                .Filter.Eq("Code", code);
             try
             {
+                FilterDefinition<Food> filter = Builders<Food>
+                .Filter.Eq("Code", code);
                 var result = await foodsCollection
                     .FindOneAndDeleteAsync(filter);
                 if (result != null)
                     return true;
                 return false;
             }
-            catch {
-                return false;
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
 
@@ -63,23 +72,30 @@
                     .AsQueryable<Food>().ToListAsync();
                 return foodsList;
             }
-            catch
+            catch (Exception ex)
             {
-                return null;
-                ///
+                throw ex;
             }
         }
 
 
         public async Task<Food?> GetSingleAsync(int code)
         {
-            FilterDefinition<Food> filter = Builders<Food>
-                .Filter.Eq("Code", code);
+            try
+            {
+                FilterDefinition<Food> filter = Builders<Food>
+               .Filter.Eq("Code", code);
 
-            return await foodsCollection.Find(filter)
-                .FirstOrDefaultAsync();
-                 
-         }
+                return await foodsCollection.Find(filter)
+                    .FirstOrDefaultAsync();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+
+        }
 
         public async Task<bool> UpdatAsync(int code, Food food)
         {
@@ -92,10 +108,14 @@
                 if (updatedFood != null) return true;
                 return false;
             }
-            catch
+            catch (MongoWriteException ex)
             {
-                return false; 
-                ///
+                throw ex;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
     }
