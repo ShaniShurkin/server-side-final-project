@@ -6,14 +6,31 @@
         IDietDatabaseSettings dietDatabaseSettings;
         public DBManager(IDietDatabaseSettings dietDatabaseSettings)
         {
-            this.dietDatabaseSettings = dietDatabaseSettings;
-            this.client = new MongoClient(this.dietDatabaseSettings.ConnectionString);
-            
+            try
+            {
+                this.dietDatabaseSettings = dietDatabaseSettings;
+                this.client = new MongoClient(this.dietDatabaseSettings.ConnectionString);
+            }
+            catch (MongoConnectionException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
         }
         public IMongoDatabase getDatabase()
         {
-            return client.GetDatabase(dietDatabaseSettings.DatabaseName);
-
+            try
+            {
+                return client.GetDatabase(dietDatabaseSettings.DatabaseName);
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }
