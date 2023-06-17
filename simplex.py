@@ -10,6 +10,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd 
 from pulp import * 
+#pulp היא ספריית אופטימיזציה של תכנות ליניארי
 import seaborn as sns
 import json
 from flask import Flask, request, jsonify
@@ -50,9 +51,8 @@ def process_data():
         meal_model = []
         for meal in day_meals:
             meal_data = meals_data[meal]
-            prob  = pulp.LpProblem( "Diet", LpMinimize )
             caloriesForMeal = meal_categories_and_calories_df['calories'][meal]*calories
-            sol_model = model(prob,kg,caloriesForMeal,meal_data)
+            sol_model = model(kg,caloriesForMeal,meal_data)
             meal_model.append(sol_model)
         res_model.append(meal_model)
     unpacked = []
@@ -117,7 +117,7 @@ def extract_gram(table):
     res = {'Protein Grams':protein_grams, 'Carbohydrates Grams':carbs_grams,'Fat Grams':fat_grams}
     return res
 
-def model(prob,kg,calories,meals_data):
+def model(kg,calories,meals_data):
     meals_data = meals_data.reset_index().drop('index',axis=1)
     G = extract_gram(build_nutritional_values(kg,calories))
     E = G['Carbohydrates Grams']
@@ -130,7 +130,7 @@ def model(prob,kg,calories,meals_data):
     e = meals_data.Carbohydrates.tolist()
     f = meals_data.TotalFat.tolist()
     p = meals_data.Protein.tolist()
-    prob  = pulp.LpProblem( "Diet", LpMinimize )
+    prob = pulp.LpProblem( "Diet", LpMinimize )
     prob += pulp.lpSum( [x[food[i]]*c[i] for i in range(len(food))]  )
     prob += pulp.lpSum( [x[food[i]]*e[i] for i in range(len(x)) ] )>=E
     prob += pulp.lpSum( [x[food[i]]*f[i] for i in range(len(x)) ] )>=F
