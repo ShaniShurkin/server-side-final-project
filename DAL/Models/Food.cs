@@ -11,13 +11,13 @@
         [BsonElement("Code")]
         public int Code { get; set; }
         [BsonElement("english_name")]
-        public string EnglishName { get; set; }
+        public string EnglishName { get; set; } = null!;
         [BsonElement("smlmitzrach")]
         public int Smlmitzrach { get; set; }
         [BsonElement("shmmitzrach")]
-        public string Shmmitzrach { get; set; }
+        public string Shmmitzrach { get; set; } = null!;
         [BsonElement("categories")]
-        public object Categories { get; set; }
+        public List<int> Categories { get; set; } = null!;
         [BsonElement("short_name")]
         public string ShortName { get; set; }
         [BsonElement("makor")]
@@ -77,47 +77,6 @@
 
         #endregion
 
-        //   public Food(string id, string code, string englishName, int smlmitzrach, string shmmitzrach, int[] categories,
-        //       string shortName, int makor, double protein, double totalFat, double carbohydrates, double foodEnergy,
-        //       double totalDietaryFiber, double calcium, double iron, double magnesium, double phosphorus,
-        //       double potassium, double sodium, double vitaminAIu, double carotene, double vitaminE,
-        //       double vitaminC, double vitaminB6, double folate, double vitaminB12, double cholesterol,
-        //       double saturatedFat, double vitaminD, double totalSugars, double vitaminARe, double vitaminK)
-        //   {
-        //       Id = id;
-        //       Code = code;
-        //       EnglishName = englishName;
-        //       Smlmitzrach = smlmitzrach;
-        //       Shmmitzrach = shmmitzrach;
-        //       Categories = categories;
-        //       ShortName = shortName;
-        //       Makor = makor;
-        //       Protein = protein;
-        //       TotalFat = totalFat;
-        //       Carbohydrates = carbohydrates;
-        //       FoodEnergy = foodEnergy;
-        //       TotalDietaryFiber = totalDietaryFiber;
-        //       Calcium = calcium;
-        //       Iron = iron;
-        //       Magnesium = magnesium;
-        //       Phosphorus = phosphorus;
-        //       Potassium = potassium;
-        //       Sodium = sodium;
-        //       VitaminAIu = vitaminAIu;
-        //       Carotene = carotene;
-        //       VitaminE = vitaminE;
-        //       VitaminC = vitaminC;
-        //       VitaminB6 = vitaminB6;
-        //       Folate = folate;
-        //       VitaminB12 = vitaminB12;
-        //       Cholesterol = cholesterol;
-        //       SaturatedFat = saturatedFat;
-        //       VitaminD = vitaminD;
-        //       TotalSugars = totalSugars;
-        //       VitaminARe = vitaminARe;
-        //       VitaminK = vitaminK;
-        //   }
-
-        //}
+        
     }
 }
