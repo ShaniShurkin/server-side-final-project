@@ -2,17 +2,17 @@
 {
     public class Meal
     {
-        [BsonId]
+        /*[BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public string ObjectId { get; set; }
+        public string ObjectId { get; set; }*/
 
         [BsonElement("code")]
         public int Code { get; set; }
         [BsonElement("enName")]
-        public int EnName { get; set; }
+        public string EnName { get; set; }
 
         [BsonElement("heName")]
-        public int HeName { get; set; }
+        public string HeName { get; set; }
         [BsonElement("calories")]
         public double Calories { get; set; }
         [BsonElement("categories")]

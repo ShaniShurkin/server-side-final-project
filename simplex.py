@@ -51,8 +51,10 @@ def process_data():
         meal_model = []
         for meal in day_meals:
             meal_data = meals_data[meal]
+            a =  meal_categories_and_calories_df['calories']
+            b = a[meal]
             caloriesForMeal = meal_categories_and_calories_df['calories'][meal]*calories
-            sol_model = model(kg,caloriesForMeal,meal_data)
+            sol_model = model(kg, caloriesForMeal, meal_data)
             meal_model.append(sol_model)
         res_model.append(meal_model)
     unpacked = []
@@ -82,23 +84,22 @@ def random_dataset_day(data):
 
 # to solve the problem if there are the same meals
 def random_dataset_meal(data_len,day_data, day_meals, meal_categories_and_calories):
-    # meal_categories = {"meal1":{"categories":[1,2,3], "calories":0.5},"meal2":[4,5],"meal3":[6,1],"meal4":[7,2,8],"meal5":[9,1,4,5]}
-    # frac_data = day_data.sample(frac=1).reset_index().drop('index',axis=1)
-    # split_values_m = np.linspace(0,data_len/len(week_days),len(day_meals)+1).astype(int)
-    # split_values_m[-1] = split_values_m[-1]-1
-    # frac_data.rename(columns={'':"index"}, inplace=True)
-    # meals_data = []
-    # for s in range(len(split_values_m)-1):
-    #     meals_data.append(frac_data.loc[split_values_m[s]:split_values_m[s+1]])
+    frac_data = day_data.sample(frac=1).reset_index().drop('index',axis=1)
+    split_values_m = np.linspace(0,data_len/len(week_days),len(day_meals)+1).astype(int)
+    split_values_m[-1] = split_values_m[-1]-1
+    frac_data.rename(columns={'':"index"}, inplace=True)
     meals_data = []
-    for m in meal_categories_and_calories.index:
-        meal_data = []
-        for ind in day_data.index:
-            for c in day_data['Categories'][ind]:
-                if c in meal_categories_and_calories['categories'][m]:
-                    meal_data.append(day_data.iloc[ind:ind+1])
-                    break
-        meals_data.append(meal_data)
+    for s in range(len(split_values_m)-1):
+        meals_data.append(frac_data.loc[split_values_m[s]:split_values_m[s+1]])
+    # meals_data = []
+    # for m in meal_categories_and_calories.index:
+    #     meal_data = []
+    #     for ind in day_data.index:
+    #         for c in day_data['Categories'][ind]:
+    #             if c in meal_categories_and_calories['categories'][m]:
+    #                 meal_data.append(day_data.iloc[ind:ind+1])
+    #                 break
+    #     meals_data.append(meal_data)
     a=dict(zip(day_meals,meals_data))
     return a
 

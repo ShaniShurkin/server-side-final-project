@@ -17,7 +17,8 @@
         [BsonElement("shmmitzrach")]
         public string Shmmitzrach { get; set; } = null!;
         [BsonElement("categories")]
-        public List<int> Categories { get; set; } = null!;
+        public object Categories { get; set; } = null!;
+        //public List<int> Categories { get; set; } = null!;
         [BsonElement("short_name")]
         public string ShortName { get; set; }
         [BsonElement("makor")]
