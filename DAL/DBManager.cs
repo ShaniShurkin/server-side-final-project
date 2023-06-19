@@ -9,6 +9,8 @@
             try
             {
                 this.dietDatabaseSettings = dietDatabaseSettings;
+                Console.WriteLine(MongoClientSettings
+                    .FromConnectionString(this.dietDatabaseSettings.ConnectionString));
                 this.client = new MongoClient(this.dietDatabaseSettings.ConnectionString);
             }
             catch (MongoConnectionException ex)

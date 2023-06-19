@@ -22,7 +22,7 @@ namespace UI.Controllers
         [HttpGet("get/{code}")]
         public async Task<FoodDTO> GetSingle(int code)
         {
-            return FoodService.GetSingleAsync(code).Result;
+            return await FoodService.GetSingleAsync(code);
 
         }
         //[HttpPost("simplex")]

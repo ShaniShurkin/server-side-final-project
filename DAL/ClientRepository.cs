@@ -108,6 +108,7 @@ namespace DAL
                 if (x != null)
                 {
                     return true;
+
                 }
                 return false;
             }
@@ -121,5 +122,6 @@ namespace DAL
                 throw ex;
             }
         }
+        
     }
 }

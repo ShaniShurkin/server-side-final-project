@@ -9,6 +9,6 @@ namespace BL.Interfaces
     public interface IMenuService
     {
         Task<bool> UpdateMenu(int code, string menu);
-        Task<string> CreateMenu(List<FoodDTO> foods,ClientDTO client);
+        Task<string> CreateMenu(List<FoodDTO> foods, int code);
     }
 }

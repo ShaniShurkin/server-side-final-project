@@ -68,7 +68,10 @@ namespace BL
             //return true;
             //return await clientRepository.UpdatAsync(client);
         }
+        public async Task<ClientDTO> GetDefaultClientAsync()
+        {
+            return await GetSingleAsync(0);
+        }
 
-        
     }
 }

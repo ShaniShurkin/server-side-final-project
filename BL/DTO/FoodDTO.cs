@@ -11,7 +11,7 @@ namespace BL.DTO
         public int Smlmitzrach { get; set; }
         public string Shmmitzrach { get; set; } = null!;
         public object Categories { get; set; } = null!;
-        //public List<int> Categories { get; set; } = null!;
+        //public List<int?> Categories { get; set; } = null!;
         public int Makor { get; set; }
         public double Protein { get; set; }
         public double TotalFat { get; set; }

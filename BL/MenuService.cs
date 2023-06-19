@@ -5,10 +5,13 @@ namespace BL
     internal class MenuService : IMenuService
     {
         private readonly IMenuRepository menuRepository;
-        public MenuService(IMenuRepository menuRepository)
+        private readonly IClientService clientService;
+
+        public MenuService(IMenuRepository menuRepository, IClientService clientService)
         {
 
             this.menuRepository = menuRepository;
+            this.clientService = clientService;
 
         }
         public async Task<bool> UpdateMenu(int code, string menu)
@@ -39,8 +42,13 @@ namespace BL
 
         }
 
-        public async Task<string> CreateMenu(List<FoodDTO> foods, ClientDTO client)
+        public async Task<string> CreateMenu(List<FoodDTO> foods, int code)
         {
+            ClientDTO? client = await clientService.GetSingleAsync(code);
+            if (client == null)
+            {
+                client = await clientService.GetDefaultClientAsync();
+            }
             double calorieNeeds = CalculateCalories(client);
             string json = JsonConvert.SerializeObject(foods);
             //Dictionary<int, double> caloriesPerMeal;
@@ -51,30 +59,38 @@ namespace BL
             //categoriesPerMeal = client.Meals.ToDictionary(meal => meal.Code, meal => meal.Categories);
             //}
 
-            Dictionary<string, double> mealsCalories = new()
+            //Dictionary<string, double> mealsCalories = new()
+            //{
+            //    { "Breakfast", 0.15 },
+            //    { "Snack1", 0.1 },
+            //    { "Lunch", 0.35 },
+            //    { "Snack2", 0.1 },
+            //    { "Dinner", 0.3 }
+            //};
+            //Dictionary<string, int[]> mealCategories = new()
+            //{
+            //    { "Breakfast", new int[] { 1, 2, 3 } },
+            //    { "Snack1", new int[] { 4, 5 } },
+            //    { "Lunch", new int[] { 6, 1 } },
+            //    { "Snack2", new int[] { 7, 2, 8 } },
+            //    { "Dinner", new int[] { 9, 1, 4, 5 } }
+            //};
+            List<MealDTO> meals;
+            if (client.Meals == null || !client.Meals.Any())
             {
-                { "Breakfast", 0.15 },
-                { "Snack1", 0.1 },
-                { "Lunch", 0.35 },
-                { "Snack2", 0.1 },
-                { "Dinner", 0.3 }
-            };
-            Dictionary<string, int[]> mealCategories = new()
+                ClientDTO defaultClient = await clientService.GetDefaultClientAsync();
+                meals = defaultClient.Meals;
+
+            }
+            else
             {
-                { "Breakfast", new int[] { 1, 2, 3 } },
-                { "Snack1", new int[] { 4, 5 } },
-                { "Lunch", new int[] { 6, 1 } },
-                { "Snack2", new int[] { 7, 2, 8 } },
-                { "Dinner", new int[] { 9, 1, 4, 5 } }
-            };
+                meals = client.Meals;
+            }         
             Dictionary<string, string> dict = new()
             {
                 {"data", json },
                 {"calorieConsumption", calorieNeeds.ToString() },
-                //{"mealCategories", JsonConvert.SerializeObject(categoriesPerMeal) },
-                //{"mealsCalories",  JsonConvert.SerializeObject(caloriesPerMeal) },
-                { "mealCategories", JsonConvert.SerializeObject(mealCategories) },
-                { "mealsCalories", JsonConvert.SerializeObject(mealsCalories) },
+                {"meals", JsonConvert.SerializeObject(meals ) },
                 { "weight", client.Weight.ToString() }
             };
             string apiUrl = "http://localhost:5000/process_data";

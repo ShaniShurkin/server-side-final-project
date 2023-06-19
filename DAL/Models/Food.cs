@@ -8,7 +8,7 @@
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
-        [BsonElement("Code")]
+        [BsonElement("code")]
         public int Code { get; set; }
         [BsonElement("english_name")]
         public string EnglishName { get; set; } = null!;
@@ -18,7 +18,8 @@
         public string Shmmitzrach { get; set; } = null!;
         [BsonElement("categories")]
         public object Categories { get; set; } = null!;
-        //public List<int> Categories { get; set; } = null!;
+
+        //public List<int?> Categories { get; set; } = null!;
         [BsonElement("short_name")]
         public string ShortName { get; set; }
         [BsonElement("makor")]

@@ -1,12 +1,12 @@
 # #!/usr/bin/env python
 # # coding: utf-8
 
-# # In[25]:
+# TODO: handle empty DataFrame, should be in random_dataset_day, 
+# solve the problem if there are the same meals
+# return meals when th names are  possible for finding
+# try and catch
 
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
 import array
-import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd 
 from pulp import * 
@@ -17,7 +17,6 @@ from flask import Flask, request, jsonify
 import urllib.parse
 
 week_days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday']
-# day_meals = ['Breakfast','Snack1','Lunch','Snack2','Dinner']
 
 # Around 10% for the snack number 1 
 # Around 10% for the snack number 2 
@@ -31,46 +30,36 @@ app = Flask(__name__)
 @app.route('/process_data', methods=['POST'])
 def process_data():
     json_data = request.get_json()
-    # json_data = dict.loads(json_string)
-    json_foods = json.loads(json_data["data"])
-    meals_and_calories = json.loads(json_data["mealsCalories"])
-    day_meals = list(meals_and_calories.keys())
+    food_df = json.loads(json_data["data"])
+    food_df = pd.DataFrame(food_df)[['Shmmitzrach','FoodEnergy','Carbohydrates','TotalFat','Protein', 'EnglishName', 'Categories']].dropna()
+    meals_df = json.loads(json_data["meals"])
+    meals_df = pd.DataFrame(meals_df)
+    meals_df = meals_df.set_index("Code")
     calories = int(json_data["calorieConsumption"])
-    meal_categories = json.loads(json_data["mealCategories"])
-    a = type(meal_categories)
-    meal_categories_and_calories = {k: [meal_categories[k], meals_and_calories[k]] if k in meals_and_calories else [meal_categories[k], None] for k in meal_categories}
-    meal_categories_and_calories_df = pd.DataFrame.from_dict(meal_categories_and_calories, orient='index', columns=['categories', 'calories'])
     kg = int(json_data["weight"])
-    data = create_df(json_foods)
-    #dict_result = better_model(weight, calories , data)
-    days_data = random_dataset_day(data)
+    json_response = json.dumps(create_diet(food_df, meals_df, calories, kg), ensure_ascii=False)
+    return json_response
+    
+
+def create_diet(food_df, meals_df, calories, kg):   
+    days_data = random_dataset_day(food_df)
     res_model = []
     for day in week_days:
         day_data = days_data[day]
-        meals_data = random_dataset_meal(len(data), day_data, day_meals, meal_categories_and_calories_df)
+        meals_data = random_dataset_meal(day_data, meals_df)
+        meals_data = {key: meals_data[key] for key in meals_data if not meals_data[key].empty}
         meal_model = []
-        for meal in day_meals:
-            meal_data = meals_data[meal]
-            a =  meal_categories_and_calories_df['calories']
-            b = a[meal]
-            caloriesForMeal = meal_categories_and_calories_df['calories'][meal]*calories
+        for meal_idx in meals_df.index:
+            meal_data = meals_data.get(meal_idx, meals_data[2])
+            caloriesForMeal = meals_df.at[meal_idx, "Calories"]*calories
             sol_model = model(kg, caloriesForMeal, meal_data)
             meal_model.append(sol_model)
         res_model.append(meal_model)
     unpacked = []
     for i in range(len(res_model)):
-        unpacked.append(dict(zip(day_meals,res_model[i])))
+        unpacked.append(dict(zip(meals_df.index,res_model[i])))
     dict_result = dict(zip(week_days,unpacked))
-    json_response = json.dumps(dict_result, ensure_ascii=False)
-    response = json_response
-    return response
-    
-def create_df(json_data):
-    data = pd.DataFrame(json_data)
-    data = data[['Shmmitzrach','FoodEnergy','Carbohydrates','TotalFat','Protein', 'EnglishName', 'Categories']].dropna()
-    data = data.dropna()
-    return data
-  
+    return dict_result
 
 
 def random_dataset_day(data):
@@ -82,26 +71,16 @@ def random_dataset_day(data):
         day_data.append(frac_data.loc[split_values[s]:split_values[s+1]])
     return dict(zip(week_days,day_data))
 
-# to solve the problem if there are the same meals
-def random_dataset_meal(data_len,day_data, day_meals, meal_categories_and_calories):
-    frac_data = day_data.sample(frac=1).reset_index().drop('index',axis=1)
-    split_values_m = np.linspace(0,data_len/len(week_days),len(day_meals)+1).astype(int)
-    split_values_m[-1] = split_values_m[-1]-1
-    frac_data.rename(columns={'':"index"}, inplace=True)
+
+def random_dataset_meal(day_data, meals_df):
     meals_data = []
-    for s in range(len(split_values_m)-1):
-        meals_data.append(frac_data.loc[split_values_m[s]:split_values_m[s+1]])
-    # meals_data = []
-    # for m in meal_categories_and_calories.index:
-    #     meal_data = []
-    #     for ind in day_data.index:
-    #         for c in day_data['Categories'][ind]:
-    #             if c in meal_categories_and_calories['categories'][m]:
-    #                 meal_data.append(day_data.iloc[ind:ind+1])
-    #                 break
-    #     meals_data.append(meal_data)
-    a=dict(zip(day_meals,meals_data))
-    return a
+    for meal in meals_df.index:
+        # searches if one of food's categories is in meal categories
+        meal_data = day_data[day_data.apply(lambda df: any(i in df["Categories"] for i in meals_df.loc[meal, "Categories"]), axis=1)]
+        meals_data.append(meal_data)
+    res = dict(zip(meals_df.index,meals_data))
+    return res
+ 
 
 def build_nutritional_values(kg,calories):
     protein_calories = kg*4
@@ -111,12 +90,14 @@ def build_nutritional_values(kg,calories):
     res = {'Protein Calories':protein_calories,'Carbohydrates Calories':carb_calories,'Fat Calories':fat_calories}
     return res
 
+
 def extract_gram(table):
     protein_grams = table['Protein Calories']/4.
     carbs_grams = table['Carbohydrates Calories']/4.
     fat_grams = table['Fat Calories']/9.
     res = {'Protein Grams':protein_grams, 'Carbohydrates Grams':carbs_grams,'Fat Grams':fat_grams}
     return res
+
 
 def model(kg,calories,meals_data):
     meals_data = meals_data.reset_index().drop('index',axis=1)
@@ -156,26 +137,6 @@ def model(kg,calories,meals_data):
     he_food = dict(zip(df_sol['Food'].keys(), he_res))
     df_sol['he_food'] = he_food
     return df_sol
-# def better_model(kg,calories,data):
-#     days_data = random_dataset_day(data)
-#     res_model = []
-#     for day in week_days:
-#         day_data = days_data[day]
-#         meals_data = random_dataset_meal(data, day_data)
-#         meal_model = []
-#         for meal in day_meals:
-#             meal_data = meals_data[meal]
-#             prob  = pulp.LpProblem( "Diet", LpMinimize )
-#             sol_model = model(prob,kg,calories,meal,meal_data)
-#             meal_model.append(sol_model)
-#         res_model.append(meal_model)
-#     unpacked = []
-#     for i in range(len(res_model)):
-#         unpacked.append(dict(zip(day_meals,res_model[i])))
-#     unpacked_tot = dict(zip(week_days,unpacked))
-#     return unpacked_tot
 
 if __name__ == '__main__':
     app.run()
-
-# #diet = better_model(44,1600)['Sunday']
