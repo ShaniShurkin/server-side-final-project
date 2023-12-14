@@ -13,9 +13,9 @@
                     .FromConnectionString(this.dietDatabaseSettings.ConnectionString));
                 this.client = new MongoClient(this.dietDatabaseSettings.ConnectionString);
             }
-            catch (MongoConnectionException ex)
+            catch (MongoConnectionException e)
             {
-                throw ex;
+                throw e;
             }
             catch (Exception ex)
             {
